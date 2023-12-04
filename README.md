@@ -14,6 +14,9 @@
 ## Bugs
 
 ## Credits
+https://docs.python.org/3/library/curses.html
+Detect backspace: https://stackoverflow.com/questions/47481955/python-curses-detecting-the-backspace-key
+WPM Calculator: https://www.typingtyping.com/wpm-calculator/ **NOT IMPLEMENTED**
 
 ### Acknowledgements	
 - Thank you to my mentor Jack Wachira.\
