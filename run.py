@@ -32,39 +32,59 @@ def speed_test(stdscr):
     This the game loop, it will present random words and check if the user types the correct
     character, changing it's color to green/red
     """
-    random_string = get_random_string()
-    current_string = [" "] * len(random_string)
-
     # Initialize curses
     curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
     stdscr.clear()
-    stdscr.addstr(random_string + "\n")
-    stdscr.refresh()
+
+    # Generate three rows of random words
+    rows = [get_random_string() for _ in range(3)]
+    # Initialize a list to store the user's input
+    user_input = ["" for _ in range(3)]
 
     pos = 0
     while True:
+        # Display rows
+        for i in range(3):
+            stdscr.addstr(i, 0, rows[i])
+
+        # Display user input, color green if correct or red if incorrect
+        for i in range(3):
+            for j in range(len(user_input[i])):
+                correct = rows[i][j]
+                current_string = user_input[i][j]
+                color_pair = 1 if current_string == correct else 2
+                attribute = (
+                    curses.A_NORMAL if current_string == correct else curses.A_UNDERLINE
+                )
+                stdscr.addch(
+                    i, j, current_string, curses.color_pair(color_pair) | attribute
+                )
+
+        # Move the cursor
+        stdscr.move(pos, len(user_input[pos]))
+
         # Listen for keyboard presses
         key = stdscr.getkey()
+
         # Detect backspace
-        if key in ("KEY_BACKSPACE", "\b", "\x7f"):
-            if pos > 0:
+        if key in ["KEY_BACKSPACE", "\b", "\x7f"]:
+            if len(user_input[pos]) > 0:
+                user_input[pos] = user_input[pos][:-1]
+            elif pos > 0:
                 pos -= 1
-                current_string[pos] = " "
-                stdscr.addstr(0, pos, random_string[pos], curses.color_pair(0))
-                stdscr.move(0, pos)
-        # Check if correct or not
-        elif pos < len(random_string):
-            correct = random_string[pos]
-            current_string[pos] = key
-            color = curses.color_pair(1) if key == correct else curses.color_pair(2)
-            stdscr.addstr(0, pos, correct, color)
-            pos += 1
+                user_input[pos] = user_input[pos][:-1]
+        else:
+            # Add user input to the user_input list
+            user_input[pos] += key
 
+        # Move to next row if current row is completed
+        if len(user_input[pos]) == len(rows[pos]):
+            # Ensure pos does not exceed 2
+            pos = min(pos + 1, 2)
+
+        # Refresh the screen
         stdscr.refresh()
-
-        if pos >= len(random_string):
-            break
 
 
 def main():
