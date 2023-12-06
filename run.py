@@ -24,7 +24,7 @@ def get_random_string(length=10):
         "handle",
         "curses",
     ]
-    return " ".join(random.choice(words) for _ in range(length))
+    return " ".join(random.choice(words) for _ in range(length)) + " "
 
 
 def speed_test(stdscr):

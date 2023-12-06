@@ -12,6 +12,15 @@
 ### Manual Testing
 
 ## Bugs
+BUG: The last word of one row and the first word of the next row is not separated by whitespace, making it easy to misspell. This was fixed by adding a whitespace in the end of the `get_random_string` function
+```python
+return " ".join(random.choice(words) for _ in range(length))
+```
+to
+```python
+return " ".join(random.choice(words) for _ in range(length)) + " "
+```
+
 
 ## Credits
 - https://docs.python.org/3/library/curses.html
