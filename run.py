@@ -74,8 +74,8 @@ def speed_test(stdscr):
             elif pos > 0:
                 pos -= 1
                 user_input[pos] = user_input[pos][:-1]
-        else:
-            # Add user input to the user_input list
+        # Check if input is a printable character
+        elif len(key) == 1 and key.isprintable():
             user_input[pos] += key
 
         # Move to next row if current row is completed
