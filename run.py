@@ -36,17 +36,28 @@ def speed_test(stdscr):
     rows = [""] + [get_random_string() for _ in range(2)]
 
     while True:
-        # Display rows and color code user input
+        # Calculate center positions
+        max_y, max_x = stdscr.getmaxyx()
+        middle_y = max_y // 2
+        center_x = max(0, (max_x - len(rows[1])) // 2)
+        
+        # Display rows text
         for i in range(3):
-            stdscr.addstr(i, 0, rows[i])
+            y_position = middle_y - 1 + i
+            x_position = center_x if i == 1 else (max_x - len(rows[i])) // 2
+            stdscr.addstr(y_position, x_position, rows[i])
+
+            # Display user input with color coding
             for j in range(len(user_input[i])):
                 is_correct = j < len(rows[i]) and user_input[i][j] == rows[i][j]
                 color_pair = 1 if is_correct else 2
                 attribute = curses.A_NORMAL if is_correct else curses.A_UNDERLINE
-                stdscr.addch(i, j, user_input[i][j], curses.color_pair(color_pair) | attribute)
+                stdscr.addch(y_position, j + x_position, user_input[i][j], curses.color_pair(color_pair) | attribute)
 
-        # Move the cursor
-        stdscr.move(pos_y, pos_x)
+        # Move cursor position
+        cursor_y = middle_y - 1 + pos_y
+        cursor_x = pos_x + (center_x if pos_y == 1 else (max_x - len(rows[pos_y])) // 2)
+        stdscr.move(cursor_y, cursor_x)
 
         # Listen for keyboard presses
         key = stdscr.getkey()
@@ -91,8 +102,10 @@ def speed_test(stdscr):
 
         # REMOVE THIS, ONLY FOR TESTING
         stdscr.clear()
-        stdscr.addstr(5, 0, str(correct_chars), curses.color_pair(1))
-        stdscr.addstr(6, 0, str(incorrect_chars), curses.color_pair(2))
+        stdscr.addstr(3, 0, str(correct_chars), curses.color_pair(1))
+        stdscr.addstr(4, 0, str(incorrect_chars), curses.color_pair(2))
+        stdscr.addstr(5, 0, str(max_x), curses.color_pair(2))
+        stdscr.addstr(6, 0, str(max_y), curses.color_pair(2))
 
         # Refresh the screen
         stdscr.refresh()

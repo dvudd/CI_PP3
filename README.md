@@ -78,11 +78,12 @@ elif pos > 0 and rows[pos - 1]:
 - 500 most common words: https://www.summerboardingcourses.com/blogs/500-most-common-words-in-english/
 - https://docs.python.org/3/library/curses.html
 - Detect backspace: https://stackoverflow.com/questions/47481955/python-curses-detecting-the-backspace-key
+- Get screen size: https://stackoverflow.com/questions/53019526/get-updated-screen-size-in-python-curses
 - WPM Calculator: https://www.typingtyping.com/wpm-calculator/ **NOT IMPLEMENTED**
 - python docs: https://docs.python.org/3/howto/curses.html
     - Attributes and Color: https://docs.python.org/3/howto/curses.html#attributes-and-color
     - isprintable: https://docs.python.org/3/library/stdtypes.html?highlight=isprintable#str.isprintable
-
+    getmaxyx: https://docs.python.org/3/library/curses.html?highlight=getmaxyx#curses.window.getmaxyx
 ### Acknowledgements	
 - Thank you to my mentor Jack Wachira.\
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)\
