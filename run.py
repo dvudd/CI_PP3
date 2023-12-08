@@ -72,7 +72,7 @@ def speed_test(stdscr):
         if key in ["KEY_BACKSPACE", "\b", "\x7f"]:
             if len(user_input[pos]) > 0:
                 user_input[pos] = user_input[pos][:-1]
-            elif pos > 0:
+            elif pos > 0 and rows[pos - 1]:
                 # Move to the previous row
                 pos -= 1
         # Check if input is a printable character

@@ -57,6 +57,23 @@ This was corrected by clearing the screen and before moving the rows
             stdscr.clear()
 ```
 
+BUG: User can backspace into empty row
+This happen if the user backspaces into the top row while that row is still empty.
+To correct this I added an extra condition to the backspace key.
+From:
+```python
+elif pos > 0:
+    # Move to the previous row
+    pos -= 1
+```
+To:
+```python
+elif pos > 0 and rows[pos - 1]:
+    # Move to the previous row
+    pos -= 1
+```
+
+
 ## Credits
 - https://docs.python.org/3/library/curses.html
 - Detect backspace: https://stackoverflow.com/questions/47481955/python-curses-detecting-the-backspace-key
