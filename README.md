@@ -49,6 +49,14 @@ to:
             user_input[pos] += key
 ```
 
+BUG: Shows incorrect coloring and text when the rows are shifted.
+This was corrected by clearing the screen and before moving the rows
+```python        # Shift rows up and load a new row
+        if len(user_input[1]) == len(rows[1]):
+            # Clear the screen to avoid 
+            stdscr.clear()
+```
+
 ## Credits
 - https://docs.python.org/3/library/curses.html
 - Detect backspace: https://stackoverflow.com/questions/47481955/python-curses-detecting-the-backspace-key

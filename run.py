@@ -85,6 +85,8 @@ def speed_test(stdscr):
 
         # Shift rows up and load a new row
         if len(user_input[1]) == len(rows[1]):
+            # Clear the screen to avoid 
+            stdscr.clear()
             # Move row2 to row1, row3 to row2
             rows[:2] = rows[1:]
             # Generate a new row at row3
