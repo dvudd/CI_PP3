@@ -17,75 +17,82 @@ def get_random_string(length=10):
 
 
 def speed_test(stdscr):
-    """
-    This the game loop, it will present random words and check if the user types the correct
-    character, changing it's color to green/red
-    """
     # Initialize curses
     curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
     stdscr.clear()
 
+    # Initialize counters and cursor positions
+    correct_chars = 0
+    incorrect_chars = 0
+
+    # Initialize cursor position, start in the middle row
+    pos_y, pos_x = 1, 0
+
+    # Initialize list of user input
+    user_input = ["" for _ in range(3)]
+
     # Generate two rows of random words
     rows = [""] + [get_random_string() for _ in range(2)]
-    # Initialize a list to store the user's input
-    user_input = ["" for _ in range(3)]
-    # Set the starting position in them middle row
-    pos = 1
-    while True:
-        # Display rows
-        for i in range(3):
-            stdscr.addstr(i, 0, rows[i])
 
-        # Display user input, color green if correct or red if incorrect
+    while True:
+        # Display rows and color code user input
         for i in range(3):
             stdscr.addstr(i, 0, rows[i])
             for j in range(len(user_input[i])):
-                correct = rows[i][j] if j < len(rows[i]) else " "
-                current_string = user_input[i][j]
-                color_pair = 1 if current_string == correct else 2
-                attribute = (
-                    curses.A_NORMAL if current_string == correct else curses.A_UNDERLINE
-                )
-                stdscr.addch(
-                    i, j, current_string, curses.color_pair(color_pair) | attribute
-                )
+                is_correct = j < len(rows[i]) and user_input[i][j] == rows[i][j]
+                color_pair = 1 if is_correct else 2
+                attribute = curses.A_NORMAL if is_correct else curses.A_UNDERLINE
+                stdscr.addch(i, j, user_input[i][j], curses.color_pair(color_pair) | attribute)
 
         # Move the cursor
-        stdscr.move(pos, len(user_input[pos]))
+        stdscr.move(pos_y, pos_x)
 
         # Listen for keyboard presses
         key = stdscr.getkey()
 
-        # Detect backspace
+        # Backspace handling
         if key in ["KEY_BACKSPACE", "\b", "\x7f"]:
-            if len(user_input[pos]) > 0:
-                user_input[pos] = user_input[pos][:-1]
-            elif pos > 0 and rows[pos - 1]:
-                # Move to the previous row
-                pos -= 1
-        # Check if input is a printable character
+            if pos_x > 0:
+                pos_x -= 1
+                last_char_correct = user_input[pos_y][pos_x] == rows[pos_y][pos_x]
+                user_input[pos_y] = user_input[pos_y][:pos_x] + user_input[pos_y][pos_x+1:]
+                if last_char_correct:
+                    correct_chars -= 1
+                else:
+                    incorrect_chars -= 1
+            elif pos_y > 0 and user_input[pos_y - 1]:
+                pos_y -= 1
+                pos_x = len(user_input[pos_y])
+       
+        # Printable character handling
         elif len(key) == 1 and key.isprintable():
-            user_input[pos] += key
-            if len(user_input[pos]) == len(rows[pos]):
-                # Once row1 is completed, move back to row2
-                if pos == 0:
-                    pos = 1
+            if pos_x < len(rows[pos_y]):
+                user_input[pos_y] = user_input[pos_y][:pos_x] + key + user_input[pos_y][pos_x:]
+                is_correct = key == rows[pos_y][pos_x]
+                if is_correct:
+                    correct_chars += 1
+                else:
+                    incorrect_chars += 1
+                pos_x += 1
 
-        # Shift rows up and load a new row
-        if len(user_input[1]) == len(rows[1]):
-            # Clear the screen to avoid 
-            stdscr.clear()
-            # Move row2 to row1, row3 to row2
-            rows[:2] = rows[1:]
-            # Generate a new row at row3
-            rows[2] = get_random_string()
-            # Shift user_input
-            user_input[:2] = user_input[1:]
-            # New empty string for row3
-            user_input[2] = ""
-            # Keep typing on row2
-            pos = 1
+                # Move cursor back to middle row after completing the top row
+                if pos_y == 0 and pos_x == len(rows[pos_y]):
+                    pos_y = 1
+                    pos_x = len(user_input[pos_y])
+
+        # Row completion and shifting logic
+        if pos_y == 1 and pos_x >= len(rows[pos_y]):
+            rows.pop(0)
+            rows.append(get_random_string())
+            user_input.pop(0)
+            user_input.append("")
+            pos_x = 0
+
+        # REMOVE THIS, ONLY FOR TESTING
+        stdscr.clear()
+        stdscr.addstr(5, 0, str(correct_chars), curses.color_pair(1))
+        stdscr.addstr(6, 0, str(incorrect_chars), curses.color_pair(2))
 
         # Refresh the screen
         stdscr.refresh()
