@@ -75,6 +75,7 @@ elif pos > 0 and rows[pos - 1]:
 
 
 ## Credits
+- 500 most common words: https://www.summerboardingcourses.com/blogs/500-most-common-words-in-english/
 - https://docs.python.org/3/library/curses.html
 - Detect backspace: https://stackoverflow.com/questions/47481955/python-curses-detecting-the-backspace-key
 - WPM Calculator: https://www.typingtyping.com/wpm-calculator/ **NOT IMPLEMENTED**

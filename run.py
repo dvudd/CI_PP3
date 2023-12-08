@@ -5,26 +5,15 @@ import random
 
 def get_random_string(length=10):
     """
-    This will return random words from the words list.
-    I will probably not do this in the final version, time will tell.
+    This will return 10 random words from the words file.
     """
-    words = [
-        "hello",
-        "world",
-        "this",
-        "is",
-        "a",
-        "typing",
-        "test",
-        "to",
-        "see",
-        "if",
-        "heroku",
-        "can",
-        "handle",
-        "curses",
-    ]
-    return " ".join(random.choice(words) for _ in range(length)) + " "
+    file = "words.txt"
+    with open(file, 'r') as file:
+        words = file.read().splitlines()
+    
+    random_words = random.sample(words, min(length, len(words)))
+
+    return " ".join(random_words) + " "
 
 
 def speed_test(stdscr):
