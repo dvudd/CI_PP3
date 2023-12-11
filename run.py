@@ -46,10 +46,13 @@ def speed_test(stdscr, timer_length=30):
         middle_y = max_y // 2
         center_x = max(0, (max_x - len(rows[1])) // 2)
         
-        # Display rows text
+        # Display rows of text
         for i in range(3):
             y_position = middle_y - 1 + i
             x_position = center_x if i == 1 else (max_x - len(rows[i])) // 2
+            # Clear the row before printing
+            stdscr.addstr(y_position, 0, " " * max_x)
+            # Print the row
             stdscr.addstr(y_position, x_position, rows[i])
 
             # Display user input with color coding
@@ -119,6 +122,9 @@ def speed_test(stdscr, timer_length=30):
             remaining_time = max(int(end_time - time.time()), 0)
         else:
             remaining_time = timer_length
+        # Clear the text before printing
+        stdscr.addstr(y_position - 5, 0, " " * max_x)
+        # Print the timer
         stdscr.addstr(y_position - 5,  max_x // 2 - 30, str(f"{remaining_time}s"), curses.color_pair(3))
 
         # Check if the time is up

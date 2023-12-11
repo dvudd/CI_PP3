@@ -73,6 +73,44 @@ elif pos > 0 and rows[pos - 1]:
     pos -= 1
 ```
 
+BUG: Old text stays on screen when it should have been removed
+This could be resolved by using `stdscr.refresh()`, however this resulted in the cursor and text blinking in a high frequency. I opted to instead clear the rows of text and the timer before printing it out again.
+
+From:
+```python
+for i in range(3):
+    y_position = middle_y - 1 + i
+    x_position = center_x if i == 1 else (max_x - len(rows[i])) // 2
+    stdscr.addstr(y_position, x_position, rows[i])
+
+# Display the remaing time
+if start_time:
+    remaining_time = max(int(end_time - time.time()), 0)
+else:
+    remaining_time = timer_length
+stdscr.addstr(y_position - 5,  max_x // 2 - 30, str(f"{remaining_time}s"), curses.color_pair(3))
+```
+To:
+```python
+for i in range(3):
+    y_position = middle_y - 1 + i
+    x_position = center_x if i == 1 else (max_x - len(rows[i])) // 2
+    # Clear the row before printing
+    stdscr.addstr(y_position, 0, " " * max_x)
+    # Print the row
+    stdscr.addstr(y_position, x_position, rows[i])
+
+# Display the remaing time
+if start_time:
+    remaining_time = max(int(end_time - time.time()), 0)
+else:
+    remaining_time = timer_length
+# Clear the text before printing
+stdscr.addstr(y_position - 5, 0, " " * max_x)
+# Print the timer
+stdscr.addstr(y_position - 5,  max_x // 2 - 30, str(f"{remaining_time}s"), curses.color_pair(3))
+```
+
 
 ## Credits
 - 500 most common words: https://www.summerboardingcourses.com/blogs/500-most-common-words-in-english/
@@ -83,7 +121,9 @@ elif pos > 0 and rows[pos - 1]:
 - python docs: https://docs.python.org/3/howto/curses.html
     - Attributes and Color: https://docs.python.org/3/howto/curses.html#attributes-and-color
     - isprintable: https://docs.python.org/3/library/stdtypes.html?highlight=isprintable#str.isprintable
-    getmaxyx: https://docs.python.org/3/library/curses.html?highlight=getmaxyx#curses.window.getmaxyx
+    - getmaxyx: https://docs.python.org/3/library/curses.html?highlight=getmaxyx#curses.window.getmaxyx
+    - nodelay: https://docs.python.org/3/library/curses.html#curses.window.nodelay
+    - refresh: https://docs.python.org/3/library/curses.html#curses.window.refresh
 ### Acknowledgements	
 - Thank you to my mentor Jack Wachira.\
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)\
