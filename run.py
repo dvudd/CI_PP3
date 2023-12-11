@@ -195,6 +195,15 @@ def main(stdscr):
         center_y = max_y // 2
         center_x = max(0, (max_x // 2))
 
+        # Show the logo
+        stdscr.addstr(center_y - 5, center_x - (36 // 2), "░█▀▀░█▀█░█▀▀░█▀▀░█▀▄░▀█▀░█░█░█▀█░█▀▀")
+        stdscr.addstr(center_y - 4, center_x - (36 // 2), "░▀▀█░█▀▀░█▀▀░█▀▀░█░█░░█░░░█░░█▀▀░█▀▀")
+        stdscr.addstr(center_y - 3, center_x - (36 // 2), "░▀▀▀░▀░░░▀▀▀░▀▀▀░▀▀░░░▀░░░▀░░▀░░░▀▀▀")
+
+        # Display the instuctions to the user
+        stdscr.addstr(center_y + 8, center_x - 18, "Use the arrow keys to navigate the menu", curses.A_DIM)
+        stdscr.addstr(center_y + 9, center_x - 18, "Use the Enter key to select your option", curses.A_DIM)
+
         # Display the menu
         for idx, option in enumerate(options):
             y_position = center_y + idx

@@ -132,6 +132,7 @@ if all_chars == 0:
 - Detect backspace: https://stackoverflow.com/questions/47481955/python-curses-detecting-the-backspace-key
 - Get screen size: https://stackoverflow.com/questions/53019526/get-updated-screen-size-in-python-curses
 - WPM Calculator: https://www.speedtypingonline.com/typing-equations
+- ASCII Art Generator: https://www.asciiart.eu/text-to-ascii-art
 - python docs: https://docs.python.org/3/howto/curses.html
     - Attributes and Color: https://docs.python.org/3/howto/curses.html#attributes-and-color
     - isprintable: https://docs.python.org/3/library/stdtypes.html?highlight=isprintable#str.isprintable
