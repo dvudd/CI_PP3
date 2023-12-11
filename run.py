@@ -6,7 +6,9 @@ import time
 
 def get_random_string(length=10):
     """
-    This will return 10 random words from the words file.
+    This will return random words from the words file.
+    The number of words can be modified by the argument.
+    Default is 10 words.
     """
     file = "words.txt"
     with open(file, 'r') as file:
@@ -18,6 +20,13 @@ def get_random_string(length=10):
 
 
 def speed_test(stdscr, timer_length):
+    """
+    This is the main game loop, it will present rows of texts to the user
+    and color the user input green/red depending if it is correct or not.
+    The timer starts to count down as soon as the user starts typing.
+    The function will return the number och correct / incorrect characters after
+    the loop.
+    """
     # Initialize curses
     stdscr.clear()
 
@@ -130,6 +139,10 @@ def speed_test(stdscr, timer_length):
     return correct_chars, incorrect_chars
 
 def calculate_wpm(correct_chars, incorrect_chars, timer_length):
+    """
+    Here the WPM (Words Per Minute) is calculated. The function will return both
+    the Gross and Net WPM values.
+    """
     all_chars = correct_chars + incorrect_chars
     gross_wpm = (all_chars / 5) / (timer_length / 60)
     net_wpm = gross_wpm - (incorrect_chars / (timer_length / 60))
@@ -137,6 +150,9 @@ def calculate_wpm(correct_chars, incorrect_chars, timer_length):
     return gross_wpm, net_wpm
 
 def main(stdscr):
+    """
+    Main function, not complete yet.
+    """
     # Initialize curses
     curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
