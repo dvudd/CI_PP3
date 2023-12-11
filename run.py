@@ -27,8 +27,9 @@ def speed_test(stdscr, timer_length):
     The function will return the number och correct / incorrect characters after
     the loop.
     """
-    # Initialize curses
+    # Clear the screen and show the cursor
     stdscr.clear()
+    curses.curs_set(1)
 
     # Initialize counters and cursor positions
     correct_chars = 0
@@ -45,15 +46,16 @@ def speed_test(stdscr, timer_length):
     # Generate two rows of random words
     rows = [""] + [get_random_string() for _ in range(2)]
 
+    # Game Loop
     while True:
         # Calculate center positions
         max_y, max_x = stdscr.getmaxyx()
-        middle_y = max_y // 2
+        center_y = max_y // 2
         center_x = max(0, (max_x - len(rows[1])) // 2)
         
         # Display rows of text
         for i in range(3):
-            y_position = middle_y - 1 + i
+            y_position = center_y - 1 + i
             x_position = center_x if i == 1 else (max_x - len(rows[i])) // 2
             # Clear the row before printing
             stdscr.addstr(y_position, 0, " " * max_x)
@@ -68,7 +70,7 @@ def speed_test(stdscr, timer_length):
                 stdscr.addch(y_position, j + x_position, user_input[i][j], curses.color_pair(color_pair) | attribute)
 
         # Move cursor position
-        cursor_y = middle_y - 1 + pos_y
+        cursor_y = center_y - 1 + pos_y
         cursor_x = pos_x + (center_x if pos_y == 1 else (max_x - len(rows[pos_y])) // 2)
         stdscr.move(cursor_y, cursor_x)
 
@@ -129,11 +131,13 @@ def speed_test(stdscr, timer_length):
             remaining_time = timer_length
         # Clear the text before printing
         stdscr.addstr(y_position - 5, 0, " " * max_x)
-        # Print the timer
+        # Print the remaining time
         stdscr.addstr(y_position - 5,  max_x // 2 - 30, str(f"{remaining_time}s"), curses.color_pair(3))
 
         # Check if the time is up
         if remaining_time <= 0:
+            # Hide the cursor again before going back to main menu
+            curses.curs_set(0)
             break
 
     return correct_chars, incorrect_chars
@@ -163,39 +167,79 @@ def calculate_accuracy(correct_chars, incorrect_chars):
 
 def main(stdscr):
     """
-    Main function, not complete yet.
+    Main menu, here the user gets the option to set the timer duration, start the game or exit.
     """
     # Initialize curses
     curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_YELLOW, curses.COLOR_BLACK)
     stdscr.nodelay(True)
+    curses.curs_set(0)
 
+    # Menu options
+    options = ["Play Game", "Set Timer", "Quit"]
+    # Index for menu
+    current_option = 0
+
+    # Default Timer
     timer_length = 30
-    correct_chars, incorrect_chars = speed_test(stdscr, timer_length)
+    # Timer options
+    timer_options = [30, 60, 120, 180]
+    # Index for timer
+    timer_option_index = 0
 
-    # Calculate Gross and Net WPM
-    gross_wpm, net_wpm = calculate_wpm(correct_chars, incorrect_chars, timer_length)
-
-    # Calculate accuracy
-    accuracy = calculate_accuracy(correct_chars, incorrect_chars)
-
-    # Show results
-    stdscr.clear()
-    stdscr.addstr(0, 0, f"Gross WPM: {gross_wpm:.2f}")
-    stdscr.addstr(1, 0, f"Net WPM: {net_wpm:.2f}")
-    stdscr.addstr(2, 0, f"Accuracy: {accuracy:.2f}%")
-    stdscr.refresh()
-
-    # Wait for a key press to exit
+    # Menu Loop
     while True:
-        # Listen for keyboard presses
+        # Calculate center positions
+        max_y, max_x = stdscr.getmaxyx()
+        center_y = max_y // 2
+        center_x = max(0, (max_x // 2))
+
+        # Display the menu
+        for idx, option in enumerate(options):
+            y_position = center_y + idx
+            mode = curses.A_REVERSE if idx == current_option else curses.A_NORMAL
+            stdscr.addstr(y_position, center_x - 4, option, mode)
+
+        # Display the current timer length
+        stdscr.addstr(center_y + 1, center_x + 10, "      ")
+        stdscr.addstr(center_y + 1, center_x + 6, f"[{timer_length}s]", curses.color_pair(3))
+
+        # Handle key presses
         try:
             key = stdscr.getkey()
         except curses.error:
             key = None
-        if key in ["KEY_ENTER"]:
-            break
+        
+        # UP and ARROW keys flips trough menu
+        if key == "KEY_UP" and current_option > 0:
+            current_option -= 1
+        elif key == "KEY_DOWN" and current_option < len(options) - 1:
+            current_option += 1
+        # Detect ENTER key
+        elif key in ['\n', '\r']:
+            # Start the game, display the results afterward
+            if current_option == 0:
+                correct_chars, incorrect_chars = speed_test(stdscr, timer_length)
+                # Calculate WPM and accuracy
+                gross_wpm, net_wpm = calculate_wpm(correct_chars, incorrect_chars, timer_length)
+                accuracy = calculate_accuracy(correct_chars, incorrect_chars)
+                # Display the results
+                stdscr.clear()
+                stdscr.addstr(center_y + 5, center_x - 18, f"Gross WPM:")
+                stdscr.addstr(center_y + 5, center_x - 7, f"{gross_wpm:.2f}", curses.color_pair(3))
+                stdscr.addstr(center_y + 6, center_x - 16, f"Net WPM:")
+                stdscr.addstr(center_y + 6, center_x - 7, f"{net_wpm:.2f}", curses.color_pair(3))
+                stdscr.addstr(center_y + 5, center_x + 4, f"accuracy:")
+                stdscr.addstr(center_y + 5, center_x + 14, f"{accuracy:.2f}%", curses.color_pair(3))
+                stdscr.refresh()
+            # Switch trough the timer options
+            elif current_option == 1:
+                timer_option_index = (timer_option_index + 1) % len(timer_options)
+                timer_length = timer_options[timer_option_index]
+            # Exit the program
+            elif current_option == 2:
+                break
 
 
 if __name__ == "__main__":

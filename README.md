@@ -86,7 +86,7 @@ This could be resolved by using `stdscr.refresh()`, however this resulted in the
 From:
 ```python
 for i in range(3):
-    y_position = middle_y - 1 + i
+    y_position = center_y - 1 + i
     x_position = center_x if i == 1 else (max_x - len(rows[i])) // 2
     stdscr.addstr(y_position, x_position, rows[i])
 
@@ -100,7 +100,7 @@ stdscr.addstr(y_position - 5,  max_x // 2 - 30, str(f"{remaining_time}s"), curse
 To:
 ```python
 for i in range(3):
-    y_position = middle_y - 1 + i
+    y_position = center_y - 1 + i
     x_position = center_x if i == 1 else (max_x - len(rows[i])) // 2
     # Clear the row before printing
     stdscr.addstr(y_position, 0, " " * max_x)
@@ -131,7 +131,7 @@ if all_chars == 0:
 - https://docs.python.org/3/library/curses.html
 - Detect backspace: https://stackoverflow.com/questions/47481955/python-curses-detecting-the-backspace-key
 - Get screen size: https://stackoverflow.com/questions/53019526/get-updated-screen-size-in-python-curses
-- WPM Calculator: https://www.typingtyping.com/wpm-calculator/ **NOT IMPLEMENTED**
+- WPM Calculator: https://www.speedtypingonline.com/typing-equations
 - python docs: https://docs.python.org/3/howto/curses.html
     - Attributes and Color: https://docs.python.org/3/howto/curses.html#attributes-and-color
     - isprintable: https://docs.python.org/3/library/stdtypes.html?highlight=isprintable#str.isprintable
