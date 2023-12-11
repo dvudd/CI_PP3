@@ -17,13 +17,9 @@ def get_random_string(length=10):
     return " ".join(random_words) + " "
 
 
-def speed_test(stdscr, timer_length=30):
+def speed_test(stdscr, timer_length):
     # Initialize curses
-    curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
-    curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
-    curses.init_pair(3, curses.COLOR_YELLOW, curses.COLOR_BLACK)
     stdscr.clear()
-    stdscr.nodelay(True)
 
     # Initialize counters and cursor positions
     correct_chars = 0
@@ -133,10 +129,42 @@ def speed_test(stdscr, timer_length=30):
 
     return correct_chars, incorrect_chars
 
+def calculate_wpm(correct_chars, incorrect_chars, timer_length):
+    all_chars = correct_chars + incorrect_chars
+    gross_wpm = (all_chars / 5) / (timer_length / 60)
+    net_wpm = gross_wpm - (incorrect_chars / (timer_length / 60))
 
-def main():
-    curses.wrapper(speed_test)
+    return gross_wpm, net_wpm
+
+def main(stdscr):
+    # Initialize curses
+    curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
+    curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
+    curses.init_pair(3, curses.COLOR_YELLOW, curses.COLOR_BLACK)
+    stdscr.nodelay(True)
+
+    timer_length = 30
+    correct_chars, incorrect_chars = speed_test(stdscr, timer_length)
+
+    # Calculate Gross and Net WPM
+    gross_wpm, net_wpm = calculate_wpm(correct_chars, incorrect_chars, timer_length)
+
+    # Show results
+    stdscr.clear()
+    stdscr.addstr(0, 0, f"Gross WPM: {gross_wpm:.2f}")
+    stdscr.addstr(1, 0, f"Net WPM: {net_wpm:.2f}")
+    stdscr.refresh()
+
+    # Wait for a key press to exit
+    while True:
+        # Listen for keyboard presses
+        try:
+            key = stdscr.getkey()
+        except curses.error:
+            key = None
+        if key in ["KEY_ENTER"]:
+            break
 
 
 if __name__ == "__main__":
-    main()
+    curses.wrapper(main)
