@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from run import calculate_wpm
+from run import calculate_wpm, calculate_accuracy
 
 def test_calculate_wpm():
     # Test case all correct characters for 30 seconds
@@ -29,3 +29,19 @@ def test_calculate_wpm():
     gross_wpm, net_wpm = calculate_wpm(50, 100, 60)
     assert gross_wpm == 30
     assert net_wpm == -70
+
+def test_calculate_accuracy():
+    # All correct characters
+    assert calculate_accuracy(100, 0) == 100.0
+
+    # Some incorrect but mostly correct characters
+    assert calculate_accuracy(80, 20) == 80.0
+
+    # Equal number of correct and incorrect characters
+    assert calculate_accuracy(50, 50) == 50.0
+    
+    # All incorrect characters
+    assert calculate_accuracy(0, 100) == 0.0
+
+    # Edge case: No characters typed
+    assert calculate_accuracy(0, 0) == 0.0

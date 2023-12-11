@@ -149,6 +149,18 @@ def calculate_wpm(correct_chars, incorrect_chars, timer_length):
 
     return gross_wpm, net_wpm
 
+def calculate_accuracy(correct_chars, incorrect_chars):
+    """
+    Here we calculate the accuracy of the users input.
+    """
+    all_chars = correct_chars + incorrect_chars
+    # Prevent division by zero
+    if all_chars == 0:
+        return 0
+    accuracy = (correct_chars / all_chars) * 100
+
+    return accuracy
+
 def main(stdscr):
     """
     Main function, not complete yet.
@@ -165,10 +177,14 @@ def main(stdscr):
     # Calculate Gross and Net WPM
     gross_wpm, net_wpm = calculate_wpm(correct_chars, incorrect_chars, timer_length)
 
+    # Calculate accuracy
+    accuracy = calculate_accuracy(correct_chars, incorrect_chars)
+
     # Show results
     stdscr.clear()
     stdscr.addstr(0, 0, f"Gross WPM: {gross_wpm:.2f}")
     stdscr.addstr(1, 0, f"Net WPM: {net_wpm:.2f}")
+    stdscr.addstr(2, 0, f"Accuracy: {accuracy:.2f}%")
     stdscr.refresh()
 
     # Wait for a key press to exit

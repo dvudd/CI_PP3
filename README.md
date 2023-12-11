@@ -14,7 +14,7 @@
 ### Automated Testing
 To verify that the calculations are correct I set up automated tests using [pytest](https://docs.pytest.org/en/7.4.x/). These tests are in the `test_run.py` in the `test` folder.
 
-To install `pytest` issue the command `pip3 install pytest`. Once the installation is complete run the command `pytest test`.
+To install `pytest`, issue the command `pip3 install pytest`. Once the installation is complete run the command `pytest test`.
 
 **RESULTS**
 
@@ -118,6 +118,13 @@ stdscr.addstr(y_position - 5, 0, " " * max_x)
 stdscr.addstr(y_position - 5,  max_x // 2 - 30, str(f"{remaining_time}s"), curses.color_pair(3))
 ```
 
+BUG: ZeroDivisionError in calculate_accuracy function
+This occured when no characters are typed in and the calculate_accuracy function tries to divide by zero.
+To prevent this I added this check before the division:
+```python
+if all_chars == 0:
+    return 0
+```
 
 ## Credits
 - 500 most common words: https://www.summerboardingcourses.com/blogs/500-most-common-words-in-english/
