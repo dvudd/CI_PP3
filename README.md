@@ -11,6 +11,13 @@
 
 ### Manual Testing
 
+### Automated Testing
+To verify that the calculations are correct I set up automated tests using [pytest](https://docs.pytest.org/en/7.4.x/). These tests are in the `test_run.py` in the `test` folder.
+
+To install `pytest` issue the command `pip3 install pytest`. Once the installation is complete run the command `pytest test`.
+
+**RESULTS**
+
 ## Bugs
 BUG: The last word of one row and the first word of the next row is not separated by whitespace, making it easy to misspell. This was fixed by adding a whitespace in the end of the `get_random_string` function
 ```python
