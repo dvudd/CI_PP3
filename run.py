@@ -167,6 +167,47 @@ def calculate_accuracy(correct_chars, incorrect_chars):
 
     return accuracy
 
+def show_results(stdscr, gross_wpm, net_wpm, accuracy, timer_length):
+    """
+    Presents the results to the user
+    """
+    # Clear the screen
+    stdscr.clear()
+    while True:
+        # Calculate center positions
+        max_y, max_x = stdscr.getmaxyx()
+        center_y = max_y // 2
+        center_x = max(0, (max_x // 2))
+
+        # Show the logo
+        stdscr.addstr(center_y - 5, center_x - (28 // 2), "░█▀▄░█▀▀░█▀▀░█░█░█░░░▀█▀░█▀▀")
+        stdscr.addstr(center_y - 4, center_x - (28 // 2), "░█▀▄░█▀▀░▀▀█░█░█░█░░░░█░░▀▀█")
+        stdscr.addstr(center_y - 3, center_x - (28 // 2), "░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀▀░░▀░░▀▀▀")
+
+        # Print the result
+        stdscr.addstr(center_y, center_x - 8 , f"Net WPM:")
+        stdscr.addstr(center_y, center_x + 1, f"{net_wpm:.2f}", curses.color_pair(3))
+
+        stdscr.addstr(center_y + 7, center_x - 20, f"Gross WPM:")
+        stdscr.addstr(center_y + 7, center_x - 9, f"{gross_wpm:.2f}", curses.color_pair(3))
+
+        stdscr.addstr(center_y + 7, center_x + 5, f"accuracy:")
+        stdscr.addstr(center_y + 7, center_x + 15, f"{accuracy:.2f}%", curses.color_pair(3))
+
+        stdscr.addstr(center_y + 9, center_x - 20, "Press the Enter key to return to main menu", curses.A_DIM)
+        stdscr.move(0, 0)
+        
+        # Wait for user input
+        try:
+            key = stdscr.getkey()
+        except curses.error:
+            key = None
+        
+        # Listen for the Enter key
+        if key in ['\n', '\r']:
+            stdscr.clear()
+            break
+
 def main(stdscr):
     """
     Main menu, here the user gets the option to set the timer duration, start the game or exit.
@@ -240,14 +281,7 @@ def main(stdscr):
                 gross_wpm, net_wpm = calculate_wpm(correct_chars, incorrect_chars, timer_length)
                 accuracy = calculate_accuracy(correct_chars, incorrect_chars)
                 # Display the results
-                stdscr.clear()
-                stdscr.addstr(center_y + 5, center_x - 18, f"Gross WPM:")
-                stdscr.addstr(center_y + 5, center_x - 7, f"{gross_wpm:.2f}", curses.color_pair(3))
-                stdscr.addstr(center_y + 6, center_x - 16, f"Net WPM:")
-                stdscr.addstr(center_y + 6, center_x - 7, f"{net_wpm:.2f}", curses.color_pair(3))
-                stdscr.addstr(center_y + 5, center_x + 4, f"accuracy:")
-                stdscr.addstr(center_y + 5, center_x + 14, f"{accuracy:.2f}%", curses.color_pair(3))
-                stdscr.refresh()
+                show_results(stdscr, gross_wpm, net_wpm, accuracy, timer_length)
             # Switch trough the timer options
             elif current_option == 1:
                 timer_option_index = (timer_option_index + 1) % len(timer_options)
