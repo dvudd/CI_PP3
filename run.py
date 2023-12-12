@@ -136,7 +136,7 @@ def speed_test(stdscr, timer_length):
             # Dim the remaining time and show a short instruction
             attribute = curses.A_DIM
             stdscr.addstr(y_position - 5,  max_x // 2 - 30, str(f"{remaining_time}s"), curses.color_pair(3) | attribute)
-            stdscr.addstr(y_position + 8, max_x // 3, "The test begins when you start typing", curses.A_DIM)
+            stdscr.addstr(y_position + 8, center_x + 8, "The test begins when you start typing", curses.A_DIM)
 
         # Check if the time is up
         if remaining_time <= 0:
@@ -202,8 +202,8 @@ def main(stdscr):
         stdscr.addstr(center_y - 3, center_x - (36 // 2), "░▀▀▀░▀░░░▀▀▀░▀▀▀░▀▀░░░▀░░░▀░░▀░░░▀▀▀")
 
         # Display the instuctions to the user
-        stdscr.addstr(center_y + 8, center_x - 18, "Use the arrow keys to navigate the menu", curses.A_DIM)
-        stdscr.addstr(center_y + 9, center_x - 18, "Use the Enter key to select your option", curses.A_DIM)
+        stdscr.addstr(center_y + 8, center_x - 18, "Navigate through the menu using the arrow keys", curses.A_DIM)
+        stdscr.addstr(center_y + 9, center_x - 15, "Confirm your selection with the Enter key", curses.A_DIM)
 
         # Display the menu
         for idx, option in enumerate(options):
