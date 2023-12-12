@@ -19,7 +19,7 @@ def get_random_string(length=10):
     return " ".join(random_words) + " "
 
 
-def speed_test(stdscr, timer_length):
+def speed_test(stdscr, timer):
     """
     This is the main game loop, it will present rows of texts to the user
     and color the user input green/red depending if it is correct or not.
@@ -31,8 +31,8 @@ def speed_test(stdscr, timer_length):
     stdscr.clear()
 
     # Initialize counters and cursor positions
-    correct_chars = 0
-    incorrect_chars = 0
+    num_correct = 0
+    num_incorrect = 0
     start_time = None
     end_time = None
 
@@ -40,7 +40,7 @@ def speed_test(stdscr, timer_length):
     pos_y, pos_x = 1, 0
 
     # Initialize list of user input
-    user_input = ["" for _ in range(3)]
+    entry = ["" for _ in range(3)]
 
     # Generate two rows of random words
     rows = [""] + [get_random_string() for _ in range(2)]
@@ -64,18 +64,19 @@ def speed_test(stdscr, timer_length):
             # Print the row
             stdscr.addstr(y_position, x_position, rows[i])
 
-            # Display user input with color coding
-            for j in range(len(user_input[i])):
-                if j < len(rows[i]) and user_input[i][j] == rows[i][j]:
+            # Color code user input
+            for j in range(len(entry[i])):
+                if j < len(rows[i]) and entry[i][j] == rows[i][j]:
                     color_pair = 1
                     attribute = curses.A_NORMAL
                 else:
                     color_pair = 2
                     attribute = curses.A_UNDERLINE
+                # Print the user input
                 stdscr.addch(
                     y_position,
                     j + x_position,
-                    user_input[i][j],
+                    entry[i][j],
                     curses.color_pair(color_pair) | attribute,
                 )
 
@@ -97,47 +98,47 @@ def speed_test(stdscr, timer_length):
             # Start the timer once user presses a key
             if start_time is None:
                 start_time = time.time()
-                end_time = start_time + timer_length
+                end_time = start_time + timer
 
             # Backspace handling
             if key in ["KEY_BACKSPACE", "\b", "\x7f"]:
                 if pos_x > 0:
                     pos_x -= 1
-                    last_char_correct = user_input[pos_y][pos_x] == rows[pos_y][pos_x]
-                    user_input[pos_y] = (
-                        user_input[pos_y][:pos_x] + user_input[pos_y][pos_x + 1 :]
-                    )
-                    if last_char_correct:
-                        correct_chars -= 1
+                    if entry[pos_y][pos_x] == rows[pos_y][pos_x]:
+                        num_correct -= 1
                     else:
-                        incorrect_chars -= 1
-                elif pos_y > 0 and user_input[pos_y - 1]:
+                        num_incorrect -= 1
+                    entry[pos_y] = (
+                        entry[pos_y][:pos_x] + entry[pos_y][pos_x + 1:]
+                    )
+                elif pos_y > 0 and entry[pos_y - 1]:
                     pos_y -= 1
-                    pos_x = len(user_input[pos_y])
+                    pos_x = len(entry[pos_y])
 
             # Printable character handling
             elif len(key) == 1 and key.isprintable():
                 if pos_x < len(rows[pos_y]):
-                    user_input[pos_y] = (
-                        user_input[pos_y][:pos_x] + key + user_input[pos_y][pos_x:]
+                    entry[pos_y] = (
+                        entry[pos_y][:pos_x] + key + entry[pos_y][pos_x:]
                     )
                     if key == rows[pos_y][pos_x]:
-                        correct_chars += 1
+                        num_correct += 1
                     else:
-                        incorrect_chars += 1
+                        num_incorrect += 1
                     pos_x += 1
 
-                    # Move cursor back to middle row after completing the top row
+                    # Move cursor back to middle row after
+                    # completing the top row
                     if pos_y == 0 and pos_x == len(rows[pos_y]):
                         pos_y = 1
-                        pos_x = len(user_input[pos_y])
+                        pos_x = len(entry[pos_y])
 
             # Row completion and shifting logic
             if pos_y == 1 and pos_x >= len(rows[pos_y]):
                 rows.pop(0)
                 rows.append(get_random_string())
-                user_input.pop(0)
-                user_input.append("")
+                entry.pop(0)
+                entry.append("")
                 pos_x = 0
 
         # Display the remaing time
@@ -146,7 +147,7 @@ def speed_test(stdscr, timer_length):
         stdscr.addstr(y_position + 8, 0, " " * max_x)
         if start_time:
             remaining_time = max(int(end_time - time.time()), 0)
-            # Print the remaining time
+            # Print the timer
             stdscr.addstr(
                 y_position - 5,
                 max_x // 2 - 30,
@@ -154,8 +155,9 @@ def speed_test(stdscr, timer_length):
                 curses.color_pair(3),
             )
         else:
-            remaining_time = timer_length
-            # Dim the remaining time and show a short instruction
+            remaining_time = timer
+            # Print the timer, but dimmed to indicate
+            # that it is not active
             attribute = curses.A_DIM
             stdscr.addstr(
                 y_position - 5,
@@ -163,6 +165,7 @@ def speed_test(stdscr, timer_length):
                 str(f"{remaining_time}s"),
                 curses.color_pair(3) | attribute,
             )
+            # Print a short instruction
             stdscr.addstr(
                 y_position + 8,
                 center_x + 8,
@@ -174,35 +177,35 @@ def speed_test(stdscr, timer_length):
         if remaining_time <= 0:
             break
 
-    return correct_chars, incorrect_chars
+    return num_correct, num_incorrect
 
 
-def calculate_wpm(correct_chars, incorrect_chars, timer_length):
+def calculate_wpm(num_correct, num_incorrect, timer):
     """
     Here the WPM (Words Per Minute) is calculated.
     The function will return both the Gross and Net WPM values.
     """
-    all_chars = correct_chars + incorrect_chars
-    gross_wpm = (all_chars / 5) / (timer_length / 60)
-    net_wpm = gross_wpm - (incorrect_chars / (timer_length / 60))
+    all_chars = num_correct + num_incorrect
+    gross_wpm = (all_chars / 5) / (timer / 60)
+    net_wpm = gross_wpm - (num_incorrect / (timer / 60))
 
     return gross_wpm, net_wpm
 
 
-def calculate_accuracy(correct_chars, incorrect_chars):
+def calculate_accuracy(num_correct, num_incorrect):
     """
     Here we calculate the accuracy of the users input.
     """
-    all_chars = correct_chars + incorrect_chars
+    all_chars = num_correct + num_incorrect
     # Prevent division by zero
     if all_chars == 0:
         return 0
-    accuracy = (correct_chars / all_chars) * 100
+    accuracy = (num_correct / all_chars) * 100
 
     return accuracy
 
 
-def show_results(stdscr, gross_wpm, net_wpm, accuracy, timer_length):
+def show_results(stdscr, gross_wpm, net_wpm, accuracy, timer):
     """
     Presents the results to the user
     """
@@ -216,29 +219,46 @@ def show_results(stdscr, gross_wpm, net_wpm, accuracy, timer_length):
 
         # Show the logo
         stdscr.addstr(
-            center_y - 5, center_x - (28 // 2), "░█▀▄░█▀▀░█▀▀░█░█░█░░░▀█▀░█▀▀"
+            center_y - 5,
+            center_x - (28 // 2),
+            "░█▀▄░█▀▀░█▀▀░█░█░█░░░▀█▀░█▀▀"
         )
         stdscr.addstr(
-            center_y - 4, center_x - (28 // 2), "░█▀▄░█▀▀░▀▀█░█░█░█░░░░█░░▀▀█"
+            center_y - 4,
+            center_x - (28 // 2),
+            "░█▀▄░█▀▀░▀▀█░█░█░█░░░░█░░▀▀█"
         )
         stdscr.addstr(
-            center_y - 3, center_x - (28 // 2), "░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀▀░░▀░░▀▀▀"
+            center_y - 3,
+            center_x - (28 // 2),
+            "░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀▀░░▀░░▀▀▀"
         )
 
         # Print the net wpm result
         stdscr.addstr(center_y, center_x - 8, f"Net WPM:")
-        stdscr.addstr(center_y, center_x + 1, f"{net_wpm:.2f}", curses.color_pair(3))
+        stdscr.addstr(
+            center_y,
+            center_x + 1,
+            f"{net_wpm:.2f}",
+            curses.color_pair(3)
+        )
 
         # Print the gross wpm result
         stdscr.addstr(center_y + 7, center_x - 20, f"Gross WPM:")
         stdscr.addstr(
-            center_y + 7, center_x - 9, f"{gross_wpm:.2f}", curses.color_pair(3)
+            center_y + 7,
+            center_x - 9,
+            f"{gross_wpm:.2f}",
+            curses.color_pair(3)
         )
 
         # Print the accuracy result
         stdscr.addstr(center_y + 7, center_x + 5, f"accuracy:")
         stdscr.addstr(
-            center_y + 7, center_x + 15, f"{accuracy:.2f}%", curses.color_pair(3)
+            center_y + 7,
+            center_x + 15,
+            f"{accuracy:.2f}%",
+            curses.color_pair(3)
         )
 
         # Print the instructions
@@ -281,11 +301,11 @@ def main(stdscr):
     current_option = 0
 
     # Default Timer
-    timer_length = 30
+    timer = 30
     # Timer options
     timer_options = [30, 60, 120, 180]
     # Index for timer
-    timer_option_index = 0
+    timer_index = 0
 
     # Menu Loop
     while True:
@@ -296,13 +316,19 @@ def main(stdscr):
 
         # Show the logo
         stdscr.addstr(
-            center_y - 5, center_x - (36 // 2), "░█▀▀░█▀█░█▀▀░█▀▀░█▀▄░▀█▀░█░█░█▀█░█▀▀"
+            center_y - 5,
+            center_x - (36 // 2),
+            "░█▀▀░█▀█░█▀▀░█▀▀░█▀▄░▀█▀░█░█░█▀█░█▀▀"
         )
         stdscr.addstr(
-            center_y - 4, center_x - (36 // 2), "░▀▀█░█▀▀░█▀▀░█▀▀░█░█░░█░░░█░░█▀▀░█▀▀"
+            center_y - 4,
+            center_x - (36 // 2),
+            "░▀▀█░█▀▀░█▀▀░█▀▀░█░█░░█░░░█░░█▀▀░█▀▀"
         )
         stdscr.addstr(
-            center_y - 3, center_x - (36 // 2), "░▀▀▀░▀░░░▀▀▀░▀▀▀░▀▀░░░▀░░░▀░░▀░░░▀▀▀"
+            center_y - 3,
+            center_x - (36 // 2),
+            "░▀▀▀░▀░░░▀▀▀░▀▀▀░▀▀░░░▀░░░▀░░▀░░░▀▀▀"
         )
 
         # Display the instuctions to the user
@@ -331,7 +357,10 @@ def main(stdscr):
         # Display the current timer length
         stdscr.addstr(center_y + 1, center_x + 10, "      ")
         stdscr.addstr(
-            center_y + 1, center_x + 6, f"[{timer_length}s]", curses.color_pair(3)
+            center_y + 1,
+            center_x + 6,
+            f"[{timer}s]",
+            curses.color_pair(3)
         )
 
         # Hide the cursor behind the highlighted menu option
@@ -354,18 +383,18 @@ def main(stdscr):
         elif key in ["\n", "\r"]:
             # Start the game, display the results afterward
             if current_option == 0:
-                correct_chars, incorrect_chars = speed_test(stdscr, timer_length)
+                num_correct, num_incorrect = speed_test(stdscr, timer)
                 # Calculate WPM and accuracy
                 gross_wpm, net_wpm = calculate_wpm(
-                    correct_chars, incorrect_chars, timer_length
+                    num_correct, num_incorrect, timer
                 )
-                accuracy = calculate_accuracy(correct_chars, incorrect_chars)
+                accuracy = calculate_accuracy(num_correct, num_incorrect)
                 # Display the results
-                show_results(stdscr, gross_wpm, net_wpm, accuracy, timer_length)
+                show_results(stdscr, gross_wpm, net_wpm, accuracy, timer)
             # Switch trough the timer options
             elif current_option == 1:
-                timer_option_index = (timer_option_index + 1) % len(timer_options)
-                timer_length = timer_options[timer_option_index]
+                timer_index = (timer_index + 1) % len(timer_options)
+                timer = timer_options[timer_index]
             # Exit the program
             elif current_option == 2:
                 break

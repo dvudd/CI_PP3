@@ -8,6 +8,9 @@
 
 ## Testing
 ### Validator Testing
+The code is validated with [CI Python Linter](https://pep8ci.herokuapp.com/#) with no errors or warnings.
+
+**RESULTS**
 
 ### Manual Testing
 
