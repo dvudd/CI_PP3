@@ -29,7 +29,11 @@ def speed_test(stdscr, timer_length):
     """
     # Clear the screen and show the cursor
     stdscr.clear()
-    curses.curs_set(1)
+    #curses.curs_set(1)
+    try:
+        curses.curs_set(1) 
+    except curses.error:
+        pass
 
     # Initialize counters and cursor positions
     correct_chars = 0
@@ -137,7 +141,11 @@ def speed_test(stdscr, timer_length):
         # Check if the time is up
         if remaining_time <= 0:
             # Hide the cursor again before going back to main menu
-            curses.curs_set(0)
+            try:
+                curses.curs_set(0) 
+            except curses.error:
+                stdscr.move(0,0)
+                pass
             break
 
     return correct_chars, incorrect_chars
@@ -178,6 +186,7 @@ def main(stdscr):
     try:
         curses.curs_set(0) 
     except curses.error:
+        stdscr.move(0,0)
         pass
 
     # Menu options
