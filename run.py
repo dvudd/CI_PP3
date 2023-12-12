@@ -174,7 +174,11 @@ def main(stdscr):
     curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_YELLOW, curses.COLOR_BLACK)
     stdscr.nodelay(True)
-    curses.curs_set(0)
+    # Lets try if this fixes anything heroku...
+    try:
+        curses.curs_set(0) 
+    except curses.error:
+        pass
 
     # Menu options
     options = ["Play Game", "Set Timer", "Quit"]
