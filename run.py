@@ -124,14 +124,19 @@ def speed_test(stdscr, timer_length):
                 pos_x = 0
 
         # Display the remaing time
-        if start_time:
-            remaining_time = max(int(end_time - time.time()), 0)
-        else:
-            remaining_time = timer_length
         # Clear the text before printing
         stdscr.addstr(y_position - 5, 0, " " * max_x)
-        # Print the remaining time
-        stdscr.addstr(y_position - 5,  max_x // 2 - 30, str(f"{remaining_time}s"), curses.color_pair(3))
+        stdscr.addstr(y_position + 8, 0, " " * max_x)
+        if start_time:
+            remaining_time = max(int(end_time - time.time()), 0)
+            # Print the remaining time
+            stdscr.addstr(y_position - 5,  max_x // 2 - 30, str(f"{remaining_time}s"), curses.color_pair(3))
+        else:
+            remaining_time = timer_length
+            # Dim the remaining time and show a short instruction
+            attribute = curses.A_DIM
+            stdscr.addstr(y_position - 5,  max_x // 2 - 30, str(f"{remaining_time}s"), curses.color_pair(3) | attribute)
+            stdscr.addstr(y_position + 8, max_x // 3, "The test begins when you start typing", curses.A_DIM)
 
         # Check if the time is up
         if remaining_time <= 0:
