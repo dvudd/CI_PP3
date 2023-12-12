@@ -202,8 +202,8 @@ def main(stdscr):
         stdscr.addstr(center_y - 3, center_x - (36 // 2), "░▀▀▀░▀░░░▀▀▀░▀▀▀░▀▀░░░▀░░░▀░░▀░░░▀▀▀")
 
         # Display the instuctions to the user
-        stdscr.addstr(center_y + 8, center_x - 18, "Navigate through the menu using the arrow keys", curses.A_DIM)
-        stdscr.addstr(center_y + 9, center_x - 15, "Confirm your selection with the Enter key", curses.A_DIM)
+        stdscr.addstr(center_y + 8, center_x - 23, "Navigate through the menu using the arrow keys", curses.A_DIM)
+        stdscr.addstr(center_y + 9, center_x - 20, "Confirm your selection with the Enter key", curses.A_DIM)
 
         # Display the menu
         for idx, option in enumerate(options):
