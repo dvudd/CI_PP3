@@ -136,7 +136,7 @@ stdscr.move(cursor_y, cursor_x)
 ```
 
 ## Credits
-- 500 most common words: https://www.summerboardingcourses.com/blogs/500-most-common-words-in-english/
+- 1000 most common words: https://github.com/powerlanguage/word-lists
 - https://docs.python.org/3/library/curses.html
 - Detect backspace: https://stackoverflow.com/questions/47481955/python-curses-detecting-the-backspace-key
 - Get screen size: https://stackoverflow.com/questions/53019526/get-updated-screen-size-in-python-curses
