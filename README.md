@@ -126,6 +126,15 @@ if all_chars == 0:
     return 0
 ```
 
+BUG: curses.error: curs_set() returned ERR when deployed on Heroku
+This bug occured when the project was deployed on Heroku. According to this [Bug Report](https://github.com/isontheline/pro.webssh.net/issues/709) there's a problem with certain terminal settings and hiding the cursor. Since it seems I cant change the terminal settings in Heroku I did a workaround to hide the cursor behind the highlighted option in main menu.
+```python
+# Hide the cursor behind the highlighted menu option
+cursor_y = center_y + current_option
+cursor_x = center_x - len(options[current_option]) // 2
+stdscr.move(cursor_y, cursor_x)
+```
+
 ## Credits
 - 500 most common words: https://www.summerboardingcourses.com/blogs/500-most-common-words-in-english/
 - https://docs.python.org/3/library/curses.html

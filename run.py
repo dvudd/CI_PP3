@@ -29,11 +29,6 @@ def speed_test(stdscr, timer_length):
     """
     # Clear the screen and show the cursor
     stdscr.clear()
-    #curses.curs_set(1)
-    try:
-        curses.curs_set(1) 
-    except curses.error:
-        pass
 
     # Initialize counters and cursor positions
     correct_chars = 0
@@ -140,12 +135,6 @@ def speed_test(stdscr, timer_length):
 
         # Check if the time is up
         if remaining_time <= 0:
-            # Hide the cursor again before going back to main menu
-            try:
-                curses.curs_set(0) 
-            except curses.error:
-                stdscr.move(0,0)
-                pass
             break
 
     return correct_chars, incorrect_chars
@@ -182,12 +171,6 @@ def main(stdscr):
     curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_YELLOW, curses.COLOR_BLACK)
     stdscr.nodelay(True)
-    # Lets try if this fixes anything heroku...
-    try:
-        curses.curs_set(0) 
-    except curses.error:
-        stdscr.move(0,0)
-        pass
 
     # Menu options
     options = ["Play Game", "Set Timer", "Quit"]
@@ -227,6 +210,11 @@ def main(stdscr):
         stdscr.addstr(center_y + 1, center_x + 10, "      ")
         stdscr.addstr(center_y + 1, center_x + 6, f"[{timer_length}s]", curses.color_pair(3))
 
+        # Hide the cursor behind the highlighted menu option
+        cursor_y = center_y + current_option
+        cursor_x = center_x - len(options[current_option]) // 2
+        stdscr.move(cursor_y, cursor_x)
+        
         # Handle key presses
         try:
             key = stdscr.getkey()
