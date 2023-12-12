@@ -24,8 +24,8 @@ def speed_test(stdscr, timer_length):
     This is the main game loop, it will present rows of texts to the user
     and color the user input green/red depending if it is correct or not.
     The timer starts to count down as soon as the user starts typing.
-    The function will return the number och correct / incorrect characters after
-    the loop.
+    The function will return the number och correct / incorrect characters
+    after the loop.
     """
     # Clear the screen and show the cursor
     stdscr.clear()
@@ -184,17 +184,22 @@ def show_results(stdscr, gross_wpm, net_wpm, accuracy, timer_length):
         stdscr.addstr(center_y - 4, center_x - (28 // 2), "░█▀▄░█▀▀░▀▀█░█░█░█░░░░█░░▀▀█")
         stdscr.addstr(center_y - 3, center_x - (28 // 2), "░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀▀░░▀░░▀▀▀")
 
-        # Print the result
+        # Print the net wpm result
         stdscr.addstr(center_y, center_x - 8 , f"Net WPM:")
         stdscr.addstr(center_y, center_x + 1, f"{net_wpm:.2f}", curses.color_pair(3))
 
+        # Print the gross wpm result
         stdscr.addstr(center_y + 7, center_x - 20, f"Gross WPM:")
         stdscr.addstr(center_y + 7, center_x - 9, f"{gross_wpm:.2f}", curses.color_pair(3))
 
+        # Print the accuracy result
         stdscr.addstr(center_y + 7, center_x + 5, f"accuracy:")
         stdscr.addstr(center_y + 7, center_x + 15, f"{accuracy:.2f}%", curses.color_pair(3))
 
+        # Print the instructions
         stdscr.addstr(center_y + 9, center_x - 20, "Press the Enter key to return to main menu", curses.A_DIM)
+        
+        # Hide the cursor in the top left corner
         stdscr.move(0, 0)
         
         # Wait for user input
