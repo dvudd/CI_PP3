@@ -44,10 +44,15 @@ class PrintText:
         the center of the screen. Clears the entire row before printing
         """
         x_pos, y_pos = self._calculate_pos(x_offset, y_offset, text)
-        self.stdscr.addstr(y_pos, 0, " " * self.stdscr.getmaxyx()[1])
-        self.stdscr.addstr(y_pos, x_pos, text, curses.color_pair(color) | attribute)
-
-        return x_pos
+        try:
+            self.stdscr.addstr(y_pos, 0, " " * self.stdscr.getmaxyx()[1])
+            self.stdscr.addstr(y_pos, x_pos, text, curses.color_pair(color) | attribute)
+        # Error handling when terminal windows is too small.
+        except curses.error:
+            curses.endwin()
+            print("ERROR: Your terminal window is too small!")
+            exit(1)
+      
 
     def word(self, x_offset, y_offset, text, color=0, attribute=curses.A_NORMAL):
         """

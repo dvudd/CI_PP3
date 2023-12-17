@@ -151,6 +151,7 @@ stdscr.move(cursor_y, cursor_x)
     - getmaxyx: https://docs.python.org/3/library/curses.html?highlight=getmaxyx#curses.window.getmaxyx
     - nodelay: https://docs.python.org/3/library/curses.html#curses.window.nodelay
     - refresh: https://docs.python.org/3/library/curses.html#curses.window.refresh
+    - endwin: https://docs.python.org/3/library/curses.html#curses.endwin
 ### Acknowledgements	
 - Thank you to my mentor Jack Wachira.\
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)\
