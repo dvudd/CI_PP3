@@ -46,7 +46,9 @@ The code is validated with [CI Python Linter](https://pep8ci.herokuapp.com/#) wi
 | Results | Shows the RESULT logo | Confirmed |
 | Results | Shows the results in the middle | Confirmed |
 | Results | Shows the instructions at the bottom | Confirmed |
-| Main Menu | Pressing ENTER the Main menu is showed again | Confirmed |
+| Results | Pressing ENTER the Main menu is showed again | Confirmed |
+| Error handling | The program exits if the terminal window is too small | Confirmed |
+| Error handling | The program exits if the words.txt is not found | Confirmed |
 
 ### Automated Testing
 To verify that the calculations are correct I set up automated tests using [pytest](https://docs.pytest.org/en/7.4.x/). These tests are in the `test_run.py` in the `test` folder.
