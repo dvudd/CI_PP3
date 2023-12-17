@@ -22,7 +22,8 @@ To install `pytest`, issue the command `pip3 install pytest`. Once the installat
 **RESULTS**
 
 ## Bugs
-BUG: The last word of one row and the first word of the next row is not separated by whitespace, making it easy to misspell. This was fixed by adding a whitespace in the end of the `get_random_string` function
+<details><summary>BUG: Rows are not separated by whitespace</summary>
+The last word of one row and the first word of the next row is not separated by whitespace, making it easy to misspell. This was fixed by adding a whitespace in the end of the `get_random_string` function
 ```python
 return " ".join(random.choice(words) for _ in range(length))
 ```
@@ -31,7 +32,8 @@ to
 return " ".join(random.choice(words) for _ in range(length)) + " "
 ```
 
-BUG: When user presses TAB or the arrow keys it gets processed as a valid input.
+</details>
+<details><summary>BUG: When user presses TAB or the arrow keys it gets processed as a valid input.</summary>
 The issue was resolved by running the input through the `.isprintable()` function
 ```python
         # Detect backspace
@@ -59,7 +61,8 @@ to:
             user_input[pos] += key
 ```
 
-BUG: Shows incorrect coloring and text when the rows are shifted.
+</details>
+<details><summary>BUG: Shows incorrect coloring and text when the rows are shifted.</summary>
 This was corrected by clearing the screen and before moving the rows
 ```python        # Shift rows up and load a new row
         if len(user_input[1]) == len(rows[1]):
@@ -67,7 +70,8 @@ This was corrected by clearing the screen and before moving the rows
             stdscr.clear()
 ```
 
-BUG: User can backspace into empty row
+</details>
+<details><summary>BUG: User can backspace into empty row</summary>
 This happen if the user backspaces into the top row while that row is still empty.
 To correct this I added an extra condition to the backspace key.
 From:
@@ -83,7 +87,8 @@ elif pos > 0 and rows[pos - 1]:
     pos -= 1
 ```
 
-BUG: Old text stays on screen when it should have been removed
+</details>
+<details><summary>BUG: Old text stays on screen when it should have been removed</details>
 This could be resolved by using `stdscr.refresh()`, however this resulted in the cursor and text blinking in a high frequency. I opted to instead clear the rows of text and the timer before printing it out again.
 
 From:
@@ -121,7 +126,8 @@ stdscr.addstr(y_position - 5, 0, " " * max_x)
 stdscr.addstr(y_position - 5,  max_x // 2 - 30, str(f"{remaining_time}s"), curses.color_pair(3))
 ```
 
-BUG: ZeroDivisionError in calculate_accuracy function
+</details>
+<details><summary>BUG: ZeroDivisionError in calculate_accuracy function</summary>
 This occured when no characters are typed in and the calculate_accuracy function tries to divide by zero.
 To prevent this I added this check before the division:
 ```python
@@ -129,7 +135,8 @@ if all_chars == 0:
     return 0
 ```
 
-BUG: curses.error: curs_set() returned ERR when deployed on Heroku
+</details>
+<details><summary>BUG: curses.error: curs_set() returned ERR when deployed on Heroku</summary>
 This bug occured when the project was deployed on Heroku. According to this [Bug Report](https://github.com/isontheline/pro.webssh.net/issues/709) there's a problem with certain terminal settings and hiding the cursor. Since it seems I cant change the terminal settings in Heroku I did a workaround to hide the cursor behind the highlighted option in main menu.
 ```python
 # Hide the cursor behind the highlighted menu option
@@ -138,7 +145,8 @@ cursor_x = center_x - len(options[current_option]) // 2
 stdscr.move(cursor_y, cursor_x)
 ```
 
-BUG: Cursor is sometimes on the wrong position on a new row
+</details>
+<details><summary>BUG: Cursor is sometimes on the wrong position on a new row</summary>
 This bug occured because how the position of the rows of text and the position of the cursor where
 calculated seperatly and it was not certain that the to calculations came up with the same result.
 
@@ -162,7 +170,8 @@ cursor_y = center_y - 1 + pos_y
 stdscr.move(cursor_y, cursor_x)
 ```
 
-BUG: Cursor is on the wrong position when backspacing back to the top row
+</details>
+<details><summary>BUG: Cursor is on the wrong position when backspacing back to the top row</summary>
 This bug occured on how I implemented the row positioning and how the the python len() function works. Basicly it adds an extra whitespace at the end of the row, to fix this I simply remove that trailing whitespace.
 ```python
 # Move the cursor to the top row
@@ -171,6 +180,8 @@ elif pos_y > 0 and entry[pos_y - 1]:
     entry[pos_y] = entry[pos_y].rstrip()
     pos_x = len(entry[pos_y])
 ```
+
+</details>
 
 ## Credits
 - 1000 most common words: https://github.com/powerlanguage/word-lists
