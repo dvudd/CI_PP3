@@ -11,8 +11,14 @@ def get_random_string(length=10):
     Default is 10 words.
     """
     file = "words.txt"
-    with open(file, "r") as file:
-        words = file.read().splitlines()
+    try:
+        with open(file, "r") as file:
+            words = file.read().splitlines()
+    # Error handling if words.txt does not exists.
+    except FileNotFoundError:
+        curses.endwin()
+        print(f"ERROR: File {file} not Found!")
+        exit(1)
 
     random_words = random.sample(words, min(length, len(words)))
 
