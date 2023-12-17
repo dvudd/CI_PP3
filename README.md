@@ -24,6 +24,7 @@ To install `pytest`, issue the command `pip3 install pytest`. Once the installat
 ## Bugs
 <details><summary>BUG: Rows are not separated by whitespace</summary>
 The last word of one row and the first word of the next row is not separated by whitespace, making it easy to misspell. This was fixed by adding a whitespace in the end of the `get_random_string` function
+
 ```python
 return " ".join(random.choice(words) for _ in range(length))
 ```
@@ -35,6 +36,7 @@ return " ".join(random.choice(words) for _ in range(length)) + " "
 </details>
 <details><summary>BUG: When user presses TAB or the arrow keys it gets processed as a valid input.</summary>
 The issue was resolved by running the input through the `.isprintable()` function
+
 ```python
         # Detect backspace
         if key in ["KEY_BACKSPACE", "\b", "\x7f"]:
@@ -64,6 +66,7 @@ to:
 </details>
 <details><summary>BUG: Shows incorrect coloring and text when the rows are shifted.</summary>
 This was corrected by clearing the screen and before moving the rows
+
 ```python        # Shift rows up and load a new row
         if len(user_input[1]) == len(rows[1]):
             # Clear the screen to avoid 
@@ -75,6 +78,7 @@ This was corrected by clearing the screen and before moving the rows
 This happen if the user backspaces into the top row while that row is still empty.
 To correct this I added an extra condition to the backspace key.
 From:
+
 ```python
 elif pos > 0:
     # Move to the previous row
@@ -88,7 +92,7 @@ elif pos > 0 and rows[pos - 1]:
 ```
 
 </details>
-<details><summary>BUG: Old text stays on screen when it should have been removed</details>
+<details><summary>BUG: Old text stays on screen when it should have been removed</summary>
 This could be resolved by using `stdscr.refresh()`, however this resulted in the cursor and text blinking in a high frequency. I opted to instead clear the rows of text and the timer before printing it out again.
 
 From:
@@ -130,6 +134,7 @@ stdscr.addstr(y_position - 5,  max_x // 2 - 30, str(f"{remaining_time}s"), curse
 <details><summary>BUG: ZeroDivisionError in calculate_accuracy function</summary>
 This occured when no characters are typed in and the calculate_accuracy function tries to divide by zero.
 To prevent this I added this check before the division:
+
 ```python
 if all_chars == 0:
     return 0
@@ -138,6 +143,7 @@ if all_chars == 0:
 </details>
 <details><summary>BUG: curses.error: curs_set() returned ERR when deployed on Heroku</summary>
 This bug occured when the project was deployed on Heroku. According to this [Bug Report](https://github.com/isontheline/pro.webssh.net/issues/709) there's a problem with certain terminal settings and hiding the cursor. Since it seems I cant change the terminal settings in Heroku I did a workaround to hide the cursor behind the highlighted option in main menu.
+
 ```python
 # Hide the cursor behind the highlighted menu option
 cursor_y = center_y + current_option
@@ -173,6 +179,7 @@ stdscr.move(cursor_y, cursor_x)
 </details>
 <details><summary>BUG: Cursor is on the wrong position when backspacing back to the top row</summary>
 This bug occured on how I implemented the row positioning and how the the python len() function works. Basicly it adds an extra whitespace at the end of the row, to fix this I simply remove that trailing whitespace.
+
 ```python
 # Move the cursor to the top row
 elif pos_y > 0 and entry[pos_y - 1]:
