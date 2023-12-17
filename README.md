@@ -138,6 +138,40 @@ cursor_x = center_x - len(options[current_option]) // 2
 stdscr.move(cursor_y, cursor_x)
 ```
 
+BUG: Cursor is sometimes on the wrong position on a new row
+This bug occured because how the position of the rows of text and the position of the cursor where
+calculated seperatly and it was not certain that the to calculations came up with the same result.
+
+To fix this I saved the row starting position in a list and use that as the cursors starting position.
+```python
+# Keep track of the row starting positions
+start_pos = []
+# Display rows of text
+for i in range(3):
+    y_offset = i - 1
+    x_pos = scr.row(0, y_offset, rows[i])
+    start_pos.append(x_pos)
+# Calculate center positions
+max_y, max_x = stdscr.getmaxyx()
+center_y = max_y // 2
+
+# Move cursor position
+cursor_x = start_pos[pos_y] + len(entry[pos_y])
+cursor_x = min(cursor_x, max_x - 1)
+cursor_y = center_y - 1 + pos_y
+stdscr.move(cursor_y, cursor_x)
+```
+
+BUG: Cursor is on the wrong position when backspacing back to the top row
+This bug occured on how I implemented the row positioning and how the the python len() function works. Basicly it adds an extra whitespace at the end of the row, to fix this I simply remove that trailing whitespace.
+```python
+# Move the cursor to the top row
+elif pos_y > 0 and entry[pos_y - 1]:
+    pos_y -= 1
+    entry[pos_y] = entry[pos_y].rstrip()
+    pos_x = len(entry[pos_y])
+```
+
 ## Credits
 - 1000 most common words: https://github.com/powerlanguage/word-lists
 - https://docs.python.org/3/library/curses.html

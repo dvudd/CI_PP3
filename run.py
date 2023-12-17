@@ -53,6 +53,7 @@ class PrintText:
         try:
             self.stdscr.addstr(y_pos, 0, " " * self.stdscr.getmaxyx()[1])
             self.stdscr.addstr(y_pos, x_pos, text, curses.color_pair(color) | attribute)
+            return x_pos
         # Error handling when terminal windows is too small.
         except curses.error:
             curses.endwin()
@@ -98,15 +99,14 @@ def speed_test(stdscr, timer):
 
     # Game Loop
     while True:
-        # Calculate center positions
-        max_y, max_x = stdscr.getmaxyx()
-        center_y = max_y // 2
-        center_x = max(0, (max_x - len(rows[1])) // 2)
+        # Keep track of the row starting positions
+        start_pos = []
 
         # Display rows of text
         for i in range(3):
             y_offset = i - 1
-            scr.row(0, y_offset, rows[i])
+            x_pos = scr.row(0, y_offset, rows[i])
+            start_pos.append(x_pos)
 
             # Color code user input
             for j, char in enumerate(entry[i]):
@@ -125,12 +125,14 @@ def speed_test(stdscr, timer):
                     attribute
                     )
 
+        # Calculate center positions
+        max_y, max_x = stdscr.getmaxyx()
+        center_y = max_y // 2
+        
         # Move cursor position
+        cursor_x = start_pos[pos_y] + len(entry[pos_y])
+        cursor_x = min(cursor_x, max_x - 1)
         cursor_y = center_y - 1 + pos_y
-        if pos_y != 1:
-            cursor_x = pos_x + (max_x - len(rows[pos_y])) // 2
-        else:
-            cursor_x = pos_x + center_x
         stdscr.move(cursor_y, cursor_x)
 
         # Listen for keyboard presses
@@ -154,8 +156,10 @@ def speed_test(stdscr, timer):
                     else:
                         num_incorrect -= 1
                     entry[pos_y] = entry[pos_y][:pos_x] + entry[pos_y][pos_x + 1 :]
+                # Move the cursor to the top row
                 elif pos_y > 0 and entry[pos_y - 1]:
                     pos_y -= 1
+                    entry[pos_y] = entry[pos_y].rstrip()
                     pos_x = len(entry[pos_y])
 
             # Printable character handling
