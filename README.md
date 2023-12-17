@@ -1,5 +1,5 @@
-# Title
-
+# SPEEDTYPE
+[SPEEDTYPE](https://wpm-test-cf8ee303cbf2.herokuapp.com/)
 ## User Stories
 
 ## Features
@@ -13,6 +13,40 @@ The code is validated with [CI Python Linter](https://pep8ci.herokuapp.com/#) wi
 **RESULTS**
 
 ### Manual Testing
+| Element | Expected Behavior | Outcome |
+| ------- | ------------------ | ------- |
+| Main Menu | Shows at the beginning | Confirmed |
+| Main Menu | Shows logo | Confirmed |
+| Main Menu | Shows the instructions at the bottom | Confirmed |
+| Main Menu | Shows the three menu options | Confirmed |
+| Main Menu | UP and DOWN arrows navigate through the options | Confirmed |
+| Main Menu | Pressing ENTER on the timer options changes the timer | Confirmed |
+| Main Menu | Pressing ENTER on the Quit option exits the program | Confirmed |
+| Main Menu | Pressing ENTER on the Start Game option starts the game | Confirmed |
+| Game | Shows two rows of randomly selected words | Confirmed |
+| Game | The cursor is on the first letter of the first word | Confirmed |
+| Game | The timer is the one selected from the main menu | Confirmed |
+| Game | The timer does not count down and is dimmed | Confirmed |
+| Game | Shows the instructions at the bottom | Confirmed |
+| Game | The timer starts when first button is pressed | Confirmed |
+| Game | The timer is now not dimmed | Confirmed |
+| Game | The instructions disappear once the timer starts | Confirmed |
+| Game | The timer counts down regardless of user input | Confirmed |
+| Game | The cursor moves the the right when input is entered | Confirmed |
+| Game | The letter turns green if input is correct | Confirmed |
+| Game | The letter turns red if input is incorrect | Confirmed |
+| Game | The letter is highlighted with and underscore if input is incorrect | Confirmed |
+| Game | The cursor moves the the left when backspace is pressed | Confirmed |
+| Game | The letter turns white when backspacing | Confirmed |
+| Game | When the last letter of the row is entered, the row moves up one position | Confirmed |
+| Game | When row is complete the cursor moves back to the start | Confirmed |
+| Game | When row is complete a new row of words are printed below | Confirmed |
+| Game | When backspacing I can move back to the previous row | Confirmed |
+| Game | The game ends when the timer reaches 0 | Confirmed |
+| Results | Shows the RESULT logo | Confirmed |
+| Results | Shows the results in the middle | Confirmed |
+| Results | Shows the instructions at the bottom | Confirmed |
+| Main Menu | Pressing ENTER the Main menu is showed again | Confirmed |
 
 ### Automated Testing
 To verify that the calculations are correct I set up automated tests using [pytest](https://docs.pytest.org/en/7.4.x/). These tests are in the `test_run.py` in the `test` folder.
