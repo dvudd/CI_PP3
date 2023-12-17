@@ -95,7 +95,7 @@ def speed_test(stdscr, timer):
         # Display rows of text
         for i in range(3):
             y_offset = i - 1
-            x_position = scr.row(0, y_offset, rows[i])
+            scr.row(0, y_offset, rows[i])
 
             # Color code user input
             for j, char in enumerate(entry[i]):
@@ -106,19 +106,20 @@ def speed_test(stdscr, timer):
                     color = 2
                     attribute = curses.A_UNDERLINE
                 # Print the user input
-                stdscr.addch(
-                    center_y + y_offset,
-                    x_position + j,
+                scr.word(
+                    j - len(rows[i]) // 2,
+                    y_offset,
                     char,
-                    curses.color_pair(color) | attribute,
-                )
+                    color,
+                    attribute
+                    )
 
         # Move cursor position
         cursor_y = center_y - 1 + pos_y
-        if pos_y == 1:
-            cursor_x = pos_x + center_x
-        else:
+        if pos_y != 1:
             cursor_x = pos_x + (max_x - len(rows[pos_y])) // 2
+        else:
+            cursor_x = pos_x + center_x
         stdscr.move(cursor_y, cursor_x)
 
         # Listen for keyboard presses
@@ -304,8 +305,8 @@ def main(stdscr):
             scr.row(0, y_offset, option, 0, mode)
 
         # Display the current timer length
-        stdscr.addstr(center_y + 1, center_x + 10, "      ")
-        stdscr.addstr(center_y + 1, center_x + 6, f"[{timer}s]", curses.color_pair(3))
+        scr.word(10, 1, "      ")
+        scr.word(8, 1, f"[{timer}s]", 3)
 
         # Hide the cursor behind the highlighted menu option
         cursor_y = center_y + current_option
