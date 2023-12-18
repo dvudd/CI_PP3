@@ -227,6 +227,46 @@ elif pos_y > 0 and entry[pos_y - 1]:
 
 </details>
 
+## Deployment
+### Heroku
+The site was deployed to Heroku pages. The steps to deploy a site are as follows:
+1. Navigate to [Heroku](https://dashboard.heroku.com/apps)
+2. Click on "New", then "Create new app"
+3. Enter the app name, select your region, and click on "Create app"
+4. Navigate to the "Settings" tab
+5. Click on "Add buildpack", select "Python", and click on "Add Buildpack"
+6. Click on "Add buildpack" again, this time select "nodejs", and click on "Add Buildpack"
+7. Navigate to the "Deploy" tab
+8. In the "Deployment method" section, select "GitHub"
+9. In the "Connect to GitHub" section, select "Search"
+10. Find the desired repository, for this project I used "CI_PP3", and click "Connect"
+11. Click on either "Enable Automatic Deploys" or "Deploy Branch"
+12. Once the project has been deployed, scroll up and click on "Open app"
+
+### Forking the GitHub Repository
+By forking the GitHub Repository, we make a copy of the original repository on our GitHub account to view and/or make changes without affecting the original repository by using the following steps:
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/dvudd/CI_PP3)
+2. At the top of the Repository (not top of the page) just above the "Settings" Button on the menu, locate the "Fork" Button.
+3. You should now have a copy of the original repository in your GitHub account.
+### Making a Local Clone
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/dvudd/CI_PP3)
+2. Under the repository name, click "Clone or download".
+3. To clone the repository using HTTPS, under "Clone with HTTPS", copy the link.
+4. Open Git Bash
+5. Change the current working directory to the location where you want the cloned directory to be made.
+6. Type `git clone`, and then paste the URL you copied in Step 3.
+```sh
+
+$ git clone https://github.com/dvudd/CI_PP3
+
+```
+7. Press Enter. Your local clone will be created.
+8. Open `run.py` with python.
+```sh
+
+$ python3 run.py
+
+```
 ## Credits
 - 1000 most common words: https://github.com/powerlanguage/word-lists
 - https://docs.python.org/3/library/curses.html
