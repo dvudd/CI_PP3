@@ -37,9 +37,8 @@ WPM is calculated using the following formula:
  
 ## Testing
 ### Validator Testing
+![PEP8 validator results](readme_images/pep8_linter.webp)
 The code is validated using [CI Python Linter](https://pep8ci.herokuapp.com/#) with no errors or warnings.
-
-**RESULTS**
 
 ### Manual Testing
 | Element | Expected Behavior | Outcome |
@@ -80,7 +79,7 @@ The code is validated using [CI Python Linter](https://pep8ci.herokuapp.com/#) w
 | Error handling | The program exits if the words.txt is not found | Confirmed |
 
 ### Automated Testing
-To verify that the calculations are correct I set up automated tests using [pytest](https://docs.pytest.org/en/7.4.x/). These tests are in the `test_run.py` in the `test` folder.
+To verify that the calculations are correct I set up automated tests using [pytest](https://docs.pytest.org/en/7.4.x/). These tests are in `test_run.py` under the `test` folder.
 
 To install `pytest`, issue the command `pip3 install pytest`. Once the installation is complete run the command `pytest test`.
 
