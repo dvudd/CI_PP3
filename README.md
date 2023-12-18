@@ -227,6 +227,20 @@ elif pos_y > 0 and entry[pos_y - 1]:
 
 </details>
 
+## Technologies used
+- IDE: Microsoft VS Code
+- Repository: GitHub
+- Deployment: Heroku
+### Languages
+- Python
+### Libraries
+- [Curses](https://docs.python.org/3/howto/curses.html)
+    - Curses is used to print everything to the screen, positioning of the text and its color.
+- [Random](https://docs.python.org/3/library/random.html)
+    - The random lilbrary is used to randomize the words from words.txt
+- [Time](https://docs.python.org/3/library/time.html)
+    - Time library is used to keep track of time for the timer
+
 ## Deployment
 ### Heroku
 The site was deployed to Heroku pages. The steps to deploy a site are as follows:
