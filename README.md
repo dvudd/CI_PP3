@@ -22,16 +22,17 @@ One goal for the project was to have a sleek minimalistic look and to achieve th
 ### Calculations
 The speed of typing is commonly measured in Words Per Minute (WPM).\
 WPM is calculated using the following formula:
-- Gross WPM:
+- Gross WPM:\
     ![Gross WPM](readme_images/Gross_WPM.png)
     >Gross, or Raw WPM (Words Per Minute) is a calculation of exactly how fast you type with no error penalties. The gross typing speed is calculated by taking all words typed and dividing by the time it took to type the words in minutes. 
     >When calculating typing speed, a "word" is any five characters. For instance, "I love keyboarding, don't you?" would be counted as 6 words (30 characters / 5) and not just 5. This makes sense because typing "deinstitutionalization" obviously should count more than typing "my". Spaces, numbers, letters, and punctuation are all included, but any function keys such as Shift or Backspace are **not** included
-- Net WPM:
+- Net WPM:\
     ![Net WPM](readme_images/Net_WPM.png)
     >Net WPM is argueably the most useful tool in gauging typing abilities. Since errors play a part in its calculation, it is more a measure of typing productivity than of just typing speed. In other words, a fast but error-prone typist will receive a lower net typing speed than a slower but more accurate typist - relatively speaking of course.
     >This makes sense because proof-reading and correcting errors takes up more time than simply typing a passage correctly in the first place. Less mistakes also means less chance for errors being missed during proof-reading and making their way into the final product.
 - Accuracy:
     >Typing accuracy is defined as the percentage of correct entries out of the total entries typed. To calculate this mathematically, take the number of correct characters typed divided by the total number, multiplied by 100%. So if you typed 90 out of 100 characters correctly you typed with 90% accuracy.
+
 [[SOURCE]](https://www.speedtypingonline.com/typing-equations)
  
 ## Testing
