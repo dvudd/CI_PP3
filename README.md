@@ -1,4 +1,5 @@
 # SPEEDTYPE
+![SPEEDTYPE DEMO](readme_images/speedtype_demo.gif)\
 [SPEEDTYPE](https://wpm-test-cf8ee303cbf2.herokuapp.com/)
 ## User Stories
 
