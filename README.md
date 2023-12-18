@@ -6,11 +6,10 @@
 ## Features
 ### Main Menu
 When starting the program the main menu is presented, here the user has the options of
-
 ### Typing test
-
-## Results
-
+This is the main test, the user is presented with rows of random words. on the top left corner is a timer counting down 
+### Results
+Here the results of the test is shown, the two main results are in the middle.
 ## Development
 ### Project inception and flowchart
 ![Flowchart](readme_images/flowchart.png)\
