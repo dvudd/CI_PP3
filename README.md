@@ -276,7 +276,8 @@ No known bugs remaining.
 - IDE: Microsoft VS Code
 - Repository: GitHub
 - Deployment: Heroku
-- Flowchart: Lucidchart
+- Flowchart: [Lucidchart](https://www.lucidchart.com/pages/sv)
+- ASCII Art Generator: [asciiart](https://www.asciiart.eu/text-to-ascii-art)
 ### Languages
 - Python
 ### Libraries
@@ -289,6 +290,7 @@ No known bugs remaining.
 
 ## Deployment
 ### Heroku
+[Click here to go to the deployed site](https://wpm-test-cf8ee303cbf2.herokuapp.com/)\
 The site was deployed to Heroku pages. The steps to deploy a site are as follows:
 1. Navigate to [Heroku](https://dashboard.heroku.com/apps)
 2. Click on "New", then "Create new app"
@@ -327,21 +329,29 @@ $ git clone https://github.com/dvudd/CI_PP3
 $ python3 run.py
 
 ```
+Note: If you are using windows you need to install curses:
+```sh
+$ pip install windows-curses
+```
 ## Credits
-- 1000 most common words: https://github.com/powerlanguage/word-lists
-- https://docs.python.org/3/library/curses.html
-- Detect backspace: https://stackoverflow.com/questions/47481955/python-curses-detecting-the-backspace-key
-- Get screen size: https://stackoverflow.com/questions/53019526/get-updated-screen-size-in-python-curses
-- WPM Calculator: https://www.speedtypingonline.com/typing-equations
-- ASCII Art Generator: https://www.asciiart.eu/text-to-ascii-art
-- Handle file not found: https://stackoverflow.com/questions/22366282/python-filenotfound
-- python docs: https://docs.python.org/3/howto/curses.html
-    - Attributes and Color: https://docs.python.org/3/howto/curses.html#attributes-and-color
-    - isprintable: https://docs.python.org/3/library/stdtypes.html?highlight=isprintable#str.isprintable
-    - getmaxyx: https://docs.python.org/3/library/curses.html?highlight=getmaxyx#curses.window.getmaxyx
-    - nodelay: https://docs.python.org/3/library/curses.html#curses.window.nodelay
-    - refresh: https://docs.python.org/3/library/curses.html#curses.window.refresh
-    - endwin: https://docs.python.org/3/library/curses.html#curses.endwin
+
+### Documentation and Tutorials
+- [Python Documentation](https://docs.python.org/3/library/curses.html)
+    - [isprintable()](https://docs.python.org/3/library/stdtypes.html?highlight=isprintable#str.isprintable)
+    - [getmaxyx](https://docs.python.org/3/library/curses.html?highlight=getmaxyx#curses.window.getmaxyx)
+    - [nodelay](https://docs.python.org/3/library/curses.html#curses.window.nodelay)
+    - [refresh](https://docs.python.org/3/library/curses.html#curses.window.refresh)
+    - [endwin](https://docs.python.org/3/library/curses.html#curses.endwin)
+- [Python HowTo](https://docs.python.org/3/howto/curses.html)
+    - [Attributes and Color](https://docs.python.org/3/howto/curses.html#attributes-and-color)
+- Python Curses Tutorial: [Tech With Tim](https://www.youtube.com/watch?v=Db4oc8qc9RU&list=PLzMcBGfZo4-n2TONAOImWL4sgZsmyMBc8)
+- 1000 most common words: [GitHub](https://github.com/powerlanguage/word-lists)
+- WPM Calculations: [speedtypingonline.com](https://www.speedtypingonline.com/typing-equations)
+### Code
+- Handle file not found: [StackOverflow]https://stackoverflow.com/questions/22366282/python-filenotfound
+- Get screen size: [StackOverflow](https://stackoverflow.com/questions/53019526/get-updated-screen-size-in-python-curses)
+- Detect backspace: [StackOverflow](https://stackoverflow.com/questions/47481955/python-curses-detecting-the-backspace-key)
+
 ### Acknowledgements	
 - Thank you to my mentor Jack Wachira.\
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)\
