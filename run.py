@@ -41,10 +41,19 @@ class PrintText:
         max_y, max_x = self.stdscr.getmaxyx()
         center_y, center_x = max_y // 2, max_x // 2
         y_pos = max(0, min(center_y + y_offset, max_y - 1))
-        x_pos = max(0, min(center_x + x_offset - len(text) // 2, max_x - len(text)))
+        x_pos = max(0, min(
+            center_x + x_offset - len(text) // 2, max_x - len(text))
+            )
         return x_pos, y_pos
 
-    def row(self, x_offset, y_offset, text, color=0, attribute=curses.A_NORMAL):
+    def row(
+        self,
+        x_offset,
+        y_offset,
+        text,
+        color=0,
+        attribute=curses.A_NORMAL
+            ):
         """
         Displays text on the screen at a position relative to
         the center of the screen. Clears the entire row before printing
@@ -52,22 +61,38 @@ class PrintText:
         x_pos, y_pos = self._calculate_pos(x_offset, y_offset, text)
         try:
             self.stdscr.addstr(y_pos, 0, " " * self.stdscr.getmaxyx()[1])
-            self.stdscr.addstr(y_pos, x_pos, text, curses.color_pair(color) | attribute)
+            self.stdscr.addstr(
+                y_pos,
+                x_pos,
+                text,
+                curses.color_pair(color) | attribute
+                )
             return x_pos
         # Error handling when terminal windows is too small.
         except curses.error:
             curses.endwin()
             print("ERROR: Your terminal window is too small!")
             exit(1)
-      
 
-    def word(self, x_offset, y_offset, text, color=0, attribute=curses.A_NORMAL):
+    def word(
+        self,
+        x_offset,
+        y_offset,
+        text,
+        color=0,
+        attribute=curses.A_NORMAL
+            ):
         """
         Displays text on the screen at a position relative to
         the center of the screen. Does not clear before printing
         """
         x_pos, y_pos = self._calculate_pos(x_offset, y_offset, text)
-        self.stdscr.addstr(y_pos, x_pos, text, curses.color_pair(color) | attribute)
+        self.stdscr.addstr(
+            y_pos,
+            x_pos,
+            text,
+            curses.color_pair(color) | attribute
+            )
 
 
 def speed_test(stdscr, timer):
@@ -128,7 +153,7 @@ def speed_test(stdscr, timer):
         # Calculate center positions
         max_y, max_x = stdscr.getmaxyx()
         center_y = max_y // 2
-        
+
         # Move cursor position
         cursor_x = start_pos[pos_y] + len(entry[pos_y])
         cursor_x = min(cursor_x, max_x - 1)
@@ -151,11 +176,15 @@ def speed_test(stdscr, timer):
             if key in ["KEY_BACKSPACE", "\b", "\x7f"]:
                 if pos_x > 0:
                     pos_x -= 1
+                    # Remove count for that character
                     if entry[pos_y][pos_x] == rows[pos_y][pos_x]:
                         num_correct -= 1
                     else:
                         num_incorrect -= 1
-                    entry[pos_y] = entry[pos_y][:pos_x] + entry[pos_y][pos_x + 1 :]
+                    # Remove character at cursor position
+                    pre_cursor = entry[pos_y][:pos_x]
+                    post_cursor = entry[pos_y][pos_x + 1:]
+                    entry[pos_y] = pre_cursor + post_cursor
                 # Move the cursor to the top row
                 elif pos_y > 0 and entry[pos_y - 1]:
                     pos_y -= 1
@@ -165,7 +194,11 @@ def speed_test(stdscr, timer):
             # Printable character handling
             elif len(key) == 1 and key.isprintable():
                 if pos_x < len(rows[pos_y]):
-                    entry[pos_y] = entry[pos_y][:pos_x] + key + entry[pos_y][pos_x:]
+                    # Insert the character into the entry list
+                    pre_insert = entry[pos_y][:pos_x]
+                    post_insert = entry[pos_y][pos_x:]
+                    entry[pos_y] = pre_insert + key + post_insert
+                    # Check if correct
                     if key == rows[pos_y][pos_x]:
                         num_correct += 1
                     else:
@@ -198,7 +231,13 @@ def speed_test(stdscr, timer):
             # that it is not active
             scr.row(-30, -5, str(f"{remaining_time}s"), 3, curses.A_DIM)
             # Print a short instruction
-            scr.row(0, 8, "The test begins when you start typing", 0, curses.A_DIM)
+            scr.row(
+                0,
+                8,
+                "The test begins when you start typing",
+                0,
+                curses.A_DIM
+                )
 
         # Check if the time is up
         if remaining_time <= 0:
@@ -253,7 +292,13 @@ def show_results(stdscr, gross_wpm, net_wpm, accuracy, timer):
         scr.word(0, 3, f"Gross WPM: {gross_wpm:.2f}")
 
         # Print the instructions
-        scr.row(0, 8, "Press the Enter key to return to main menu", 0, curses.A_DIM)
+        scr.row(
+            0,
+            8,
+            "Press the Enter key to return to main menu",
+            0,
+            curses.A_DIM
+            )
 
         # Hide the cursor in the top left corner
         stdscr.move(0, 0)
@@ -307,8 +352,20 @@ def main(stdscr):
         scr.row(0, -3, "░▀▀▀░▀░░░▀▀▀░▀▀▀░▀▀░░░▀░░░▀░░▀░░░▀▀▀")
 
         # Display the instuctions to the user
-        scr.row(0, 8, "Navigate through the menu using the arrow keys", 0, curses.A_DIM)
-        scr.row(0, 9, "Confirm your selection with the Enter key", 0, curses.A_DIM)
+        scr.row(
+            0,
+            8,
+            "Navigate through the menu using the arrow keys",
+            0,
+            curses.A_DIM
+            )
+        scr.row(
+            0,
+            9,
+            "Confirm your selection with the Enter key",
+            0,
+            curses.A_DIM
+            )
 
         # Display the menu
         for idx, option in enumerate(options):
@@ -345,7 +402,11 @@ def main(stdscr):
             if current_option == 0:
                 num_correct, num_incorrect = speed_test(stdscr, timer)
                 # Calculate WPM and accuracy
-                gross_wpm, net_wpm = calculate_wpm(num_correct, num_incorrect, timer)
+                gross_wpm, net_wpm = calculate_wpm(
+                    num_correct,
+                    num_incorrect,
+                    timer
+                        )
                 accuracy = calculate_accuracy(num_correct, num_incorrect)
                 # Display the results
                 show_results(stdscr, gross_wpm, net_wpm, accuracy, timer)
