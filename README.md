@@ -2,7 +2,12 @@
 ![SPEEDTYPE DEMO](readme_images/speedtype_demo.gif)\
 [SPEEDTYPE](https://wpm-test-cf8ee303cbf2.herokuapp.com/)
 ## User Stories
-
+- As a user, I want to quickly understand the game
+- As a user, I want to select how long the game goes on.
+- As a user, I want to easily see if I mispelled a word
+- As a user, I want to correct my mistakes
+- As a user, I want to see the result of my typing speed.
+- As a user, I want to easily restart the game
 ## Features
 ### Main Menu
 When starting the program the main menu is presented, here the user has the options of
