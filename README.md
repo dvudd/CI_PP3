@@ -337,7 +337,7 @@ $ pip install windows-curses
 
 ### Documentation and Tutorials
 - [Python Documentation](https://docs.python.org/3/library/curses.html)
-    - [isprintable()](https://docs.python.org/3/library/stdtypes.html?highlight=isprintable#str.isprintable)
+    - [isprintable](https://docs.python.org/3/library/stdtypes.html?highlight=isprintable#str.isprintable)
     - [getmaxyx](https://docs.python.org/3/library/curses.html?highlight=getmaxyx#curses.window.getmaxyx)
     - [nodelay](https://docs.python.org/3/library/curses.html#curses.window.nodelay)
     - [refresh](https://docs.python.org/3/library/curses.html#curses.window.refresh)
@@ -348,7 +348,7 @@ $ pip install windows-curses
 - 1000 most common words: [GitHub](https://github.com/powerlanguage/word-lists)
 - WPM Calculations: [speedtypingonline.com](https://www.speedtypingonline.com/typing-equations)
 ### Code
-- Handle file not found: [StackOverflow]https://stackoverflow.com/questions/22366282/python-filenotfound
+- Handle file not found: [StackOverflow](https://stackoverflow.com/questions/22366282/python-filenotfound)
 - Get screen size: [StackOverflow](https://stackoverflow.com/questions/53019526/get-updated-screen-size-in-python-curses)
 - Detect backspace: [StackOverflow](https://stackoverflow.com/questions/47481955/python-curses-detecting-the-backspace-key)
 
