@@ -4,12 +4,39 @@
 ## User Stories
 
 ## Features
+### Main Menu
+When starting the program the main menu is presented, here the user has the options of
+
+### Typing test
+
+## Results
 
 ## Development
+### Project inception and flowchart
+![Flowchart](readme_images/flowchart.png)\
+In order to get a clear idea how to build the logic of the program, the project started with building a flowchart and later adapted into code. 
 
+### Look and feel
+One goal for the project was to have a sleek minimalistic look and to achieve that I decided to use the Curses library which enables the ability to not only color text but also to position text freely on the terminal window.
+
+### Calculations
+The speed of typing is commonly measured in Words Per Minute (WPM).\
+WPM is calculated using the following formula:
+- Gross WPM:
+    ![Gross WPM](readme_images/Gross_WPM.png)
+    >Gross, or Raw WPM (Words Per Minute) is a calculation of exactly how fast you type with no error penalties. The gross typing speed is calculated by taking all words typed and dividing by the time it took to type the words in minutes. 
+    >When calculating typing speed, a "word" is any five characters. For instance, "I love keyboarding, don't you?" would be counted as 6 words (30 characters / 5) and not just 5. This makes sense because typing "deinstitutionalization" obviously should count more than typing "my". Spaces, numbers, letters, and punctuation are all included, but any function keys such as Shift or Backspace are **not** included
+- Net WPM:
+    ![Net WPM](readme_images/Net_WPM.png)
+    >Net WPM is argueably the most useful tool in gauging typing abilities. Since errors play a part in its calculation, it is more a measure of typing productivity than of just typing speed. In other words, a fast but error-prone typist will receive a lower net typing speed than a slower but more accurate typist - relatively speaking of course.
+    >This makes sense because proof-reading and correcting errors takes up more time than simply typing a passage correctly in the first place. Less mistakes also means less chance for errors being missed during proof-reading and making their way into the final product.
+- Accuracy:
+    >Typing accuracy is defined as the percentage of correct entries out of the total entries typed. To calculate this mathematically, take the number of correct characters typed divided by the total number, multiplied by 100%. So if you typed 90 out of 100 characters correctly you typed with 90% accuracy.
+[[SOURCE]](https://www.speedtypingonline.com/typing-equations)
+ 
 ## Testing
 ### Validator Testing
-The code is validated with [CI Python Linter](https://pep8ci.herokuapp.com/#) with no errors or warnings.
+The code is validated using [CI Python Linter](https://pep8ci.herokuapp.com/#) with no errors or warnings.
 
 **RESULTS**
 
@@ -56,7 +83,17 @@ To verify that the calculations are correct I set up automated tests using [pyte
 
 To install `pytest`, issue the command `pip3 install pytest`. Once the installation is complete run the command `pytest test`.
 
-**RESULTS**
+Results:
+```sh
+======================================= test session starts ========================================
+platform darwin -- Python 3.11.6, pytest-7.4.3, pluggy-1.3.0
+rootdir: .../CodeInstitute/CI_PP3
+collected 2 items                                                                                  
+
+test/test_run.py ..                                                                          [100%]
+
+======================================== 2 passed in 0.01s =========================================
+```
 
 ## Bugs
 <details><summary>BUG: Rows are not separated by whitespace</summary>
@@ -228,19 +265,23 @@ elif pos_y > 0 and entry[pos_y - 1]:
 
 </details>
 
+### Known Bugs
+No known bugs remaining.
+
 ## Technologies used
 - IDE: Microsoft VS Code
 - Repository: GitHub
 - Deployment: Heroku
+- Flowchart: Lucidchart
 ### Languages
 - Python
 ### Libraries
 - [Curses](https://docs.python.org/3/howto/curses.html)
-    - Curses is used to print everything to the screen, positioning of the text and its color.
+    - Curses is used to print everything to the screen, allowing positioning of the text and its color.
 - [Random](https://docs.python.org/3/library/random.html)
-    - The random lilbrary is used to randomize the words from words.txt
+    - The random library is used to randomize the presented words from words.txt
 - [Time](https://docs.python.org/3/library/time.html)
-    - Time library is used to keep track of time for the timer
+    - Time library is used to keep track of the timer
 
 ## Deployment
 ### Heroku
