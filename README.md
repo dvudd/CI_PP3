@@ -117,7 +117,10 @@ The code is validated using [CI Python Linter](https://pep8ci.herokuapp.com/#) w
 ### Automated Testing
 To verify that the calculations are correct I set up automated tests using [pytest](https://docs.pytest.org/en/7.4.x/). These tests are in `test_run.py` under the `test` folder.
 
-To install `pytest`, issue the command `pip3 install pytest`. Once the installation is complete run the command `pytest test`.
+To install `pytest`, issue the command `pip3 install pytest`. Once the installation is complete run the command: 
+```sh
+pytest test
+``````
 
 Results:
 ```sh
@@ -361,12 +364,12 @@ $ git clone https://github.com/dvudd/CI_PP3
 $ python3 run.py
 
 ```
-Note: If you are using windows you need to install curses:
+Note: If you are using Windows, you need to install curses:
 ```sh
 $ pip install windows-curses
 ```
 ## Credits
-
+During development, I used a mix of YouTube tutorials and the official Python documentation to learn and troubleshoot the code.
 ### Documentation and Tutorials
 - [Python Documentation](https://docs.python.org/3/library/curses.html)
     - [isprintable](https://docs.python.org/3/library/stdtypes.html?highlight=isprintable#str.isprintable)
@@ -377,6 +380,8 @@ $ pip install windows-curses
 - [Python HowTo](https://docs.python.org/3/howto/curses.html)
     - [Attributes and Color](https://docs.python.org/3/howto/curses.html#attributes-and-color)
 - Python Curses Tutorial: [Tech With Tim](https://www.youtube.com/watch?v=Db4oc8qc9RU&list=PLzMcBGfZo4-n2TONAOImWL4sgZsmyMBc8)
+- Python OOP Tutorials: [Corey Schafer](https://www.youtube.com/watch?v=ZDa-Z5JzLYM&list=PL-osiE80TeTsqhIuOqKhwlXsIBIdSeYtc)
+- Python tutorials for beginners: [Corey Schafer](https://www.youtube.com/watch?v=W8KRzm-HUcc&list=PL-osiE80TeTskrapNbzXhwoFUiLCjGgY7&index=4)
 - 1000 most common words: [GitHub](https://github.com/powerlanguage/word-lists)
 - WPM Calculations: [speedtypingonline.com](https://www.speedtypingonline.com/typing-equations)
 ### Code
