@@ -16,7 +16,6 @@ def get_random_string(length=10):
 
     Returns:
     str: A string of randomly selected words. separated by space
-
     """
     file = "words.txt"
     try:
@@ -136,7 +135,7 @@ def speed_test(stdscr, timer):
     after the loop.
 
     Args:
-    stdscr (curses.window): The standard screen window used by curses for output.
+    stdscr (curses.window): The standard screen window used by curses.
     timer (int): The time duration in seconds
 
     Returns:
@@ -334,8 +333,8 @@ def show_results(stdscr, scr, gross_wpm, net_wpm, accuracy):
     Presents the results to the user on the screen.
 
     Args:
-    stdscr (curses.window): The standard screen window used by curses for output.
-    scr (PrintText): An instance of the PrintText class for handling text printing.
+    stdscr (curses.window): The standard screen window used by curses.
+    scr (PrintText): An instance of the PrintText class for text printing.
     gross_wpm (float): The Gross WPM calculated from calculate_wpm.
     net_wpm (float): The net WPM calculated from calculate_wpm.
     accuracy (float): The typing accuracy calculated from calculate_accuracy.
@@ -385,7 +384,7 @@ def main(stdscr):
     set the timer duration, start the game or exit.
 
     Args:
-    stdscr (curses.window): The standard screen window used by curses for output.
+    stdscr (curses.window): The standard screen window used by curses.
     """
     # Initialize curses
     scr = PrintText(stdscr)
