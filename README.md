@@ -11,21 +11,22 @@
 ## Features
 ### Main Menu
 ![Main Menu](readme_images/speedtype_scrot1.webp)
-When starting the program the main menu is presented, here the user has the options of selecting 
+Here the user has three options to select between
+1. Start the game
+2. How long the test should last for
+3. Exit
 ### Typing test
 ![Typing test](readme_images/speedtype_scrot2.webp)
-Here the user is presented with rows of random words, the goal is to type as many as possible until the timer runs out. Letters are colored depending if the user types the corret character or not. New rows are presented as the user completes a row.
+Here the user is presented with rows of random words, the goal is to type as many as possible until the timer runs out. Letters are color coded depending on if the user types the corret character or not. New rows are presented as the user completes a row.
 ### Results
 ![Results](readme_images/speedtype_scrot3.webp)
-Here the results of the test is shown, the two main results are in the middle.
+When the timer runs out the results are shown, and the user has the options to return to the main menu.\ For more details about WPM and accuracy, see the [Caculations](#calculations) section.
 ## Development
 ### Project inception and flowchart
 ![Flowchart](readme_images/flowchart.png)\
-In order to get a clear idea how to build the logic of the program, the project started with building a flowchart and later adapted into code. 
-
+The project started by creating a flowchart to outline and visualise the basic mechanics. After that a fairly long period of trial and error, I especially struggled with matching the rows of words and user input lists along with the cursor position. 
 ### Look and feel
-One goal for the project was to have a sleek minimalistic look and to achieve that I decided to use the Curses library which enables the ability to not only color text but also to position text freely on the terminal window.
-
+One goal for the project was to have a modern and minimalistic aesthetic. To achieve that I decided to use the Curses library which offers the flexibility to position text utilizing the whole screen. Curses also offers the ability to color text with decorations such as underlines.
 ### Calculations
 The speed of typing is commonly measured in Words Per Minute (WPM).\
 WPM is calculated using the following formula:
