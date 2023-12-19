@@ -1,6 +1,34 @@
 # SPEEDTYPE
 ![SPEEDTYPE DEMO](readme_images/speedtype_demo.gif)\
 [SPEEDTYPE](https://wpm-test-cf8ee303cbf2.herokuapp.com/) is a terminal based typing test where you can practice and improve your typing speed. 
+# Contents
+- [**SPEEDTYPE**](#SPEEDTYPE)
+- [User Stories](#user-stories)
+- [Features](#features)
+  - [Main Menu](#main-menu)
+  - [Typing Test](#typing-test)
+  - [Results](#results)
+-[Development](#development)
+    -[Project Inception and Flowchart](#project-inception-and-flowchart)
+    -[Look and feel](#look-and-feel)
+    -[Calculations](#calculations)
+-[Testing](#testing)
+    -[Validator Testing](#validator-testing)
+    -[Manual Testing](#manual-testing)
+    -[Automated Testing](#automated-testing)
+-[Bugs](#bugs)
+    -[Known Bugs](#known-bugs)
+-[Technologues Used](#technologies-used)
+    -[Languages](#languages)
+    -[Libraries](#libraries)
+-[Deployment](#deployment)
+    -[Heroku](#heroku)
+    -[Forking the GitHub repository](#forking-the-github-repository)
+    -[Making a local clone](#making-a-local-clone)
+-[Credits](#credits)
+    -[Documentation and tutorials](#documentation-and-tutorials)
+    -[Code](#code)
+-[Acknowledgements](#acknowledgements)
 ## User Stories
 - As a user, I want to quickly understand the game
 - As a user, I want to select how long the game goes on.
@@ -22,7 +50,7 @@ Here the user is presented with rows of random words, the goal is to type as man
 ![Results](readme_images/speedtype_scrot3.webp)
 When the timer runs out the results are shown, and the user has the options to return to the main menu.\ For more details about WPM and accuracy, see the [Caculations](#calculations) section.
 ## Development
-### Project inception and flowchart
+### Project Inception and Flowchart
 ![Flowchart](readme_images/flowchart.png)\
 The project started by creating a flowchart to outline and visualise the basic mechanics. After that a fairly long period of trial and error, I especially struggled with matching the rows of words and user input lists along with the cursor position. 
 ### Look and feel
