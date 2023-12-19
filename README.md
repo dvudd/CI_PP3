@@ -1,6 +1,6 @@
 # SPEEDTYPE
 ![SPEEDTYPE DEMO](readme_images/speedtype_demo.gif)\
-[SPEEDTYPE](https://wpm-test-cf8ee303cbf2.herokuapp.com/)
+[SPEEDTYPE](https://wpm-test-cf8ee303cbf2.herokuapp.com/) is a terminal based typing test where you can practice and improve your typing speed. 
 ## User Stories
 - As a user, I want to quickly understand the game
 - As a user, I want to select how long the game goes on.
@@ -10,10 +10,13 @@
 - As a user, I want to easily restart the game
 ## Features
 ### Main Menu
-When starting the program the main menu is presented, here the user has the options of
+![Main Menu](readme_images/speedtype_scrot1.webp)
+When starting the program the main menu is presented, here the user has the options of selecting 
 ### Typing test
-This is the main test, the user is presented with rows of random words. on the top left corner is a timer counting down 
+![Typing test](readme_images/speedtype_scrot2.webp)
+Here the user is presented with rows of random words, the goal is to type as many as possible until the timer runs out. Letters are colored depending if the user types the corret character or not. New rows are presented as the user completes a row.
 ### Results
+![Results](readme_images/speedtype_scrot3.webp)
 Here the results of the test is shown, the two main results are in the middle.
 ## Development
 ### Project inception and flowchart
