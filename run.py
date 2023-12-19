@@ -6,9 +6,17 @@ import time
 
 def get_random_string(length=10):
     """
-    This will return random words from the words file.
+    Returns random words from the words file.
     The number of words can be modified by the argument.
     Default is 10 words.
+
+    Args:
+    Length (int): The number of words that should be returned
+                  Default is 10.
+
+    Returns:
+    str: A string of randomly selected words. separated by space
+
     """
     file = "words.txt"
     try:
@@ -36,7 +44,14 @@ class PrintText:
     def _calculate_pos(self, x_offset, y_offset, text):
         """
         Calculates the position of the text relative to the center
-        of the screen
+        of the screen.
+
+        Args:
+        x_offset (int): Horizontal offset from center
+        y_offset (int): Vertical offset from center
+
+        Returns:
+        tuple: (int, int) The calculated positions
         """
         max_y, max_x = self.stdscr.getmaxyx()
         center_y, center_x = max_y // 2, max_x // 2
@@ -56,7 +71,15 @@ class PrintText:
             ):
         """
         Displays text on the screen at a position relative to
-        the center of the screen. Clears the entire row before printing
+        the center of the screen.
+        Note: Clears the entire row before printing.
+
+        Args:
+        x_offset (int): Horizontal offset from center
+        y_offset (int): Vertical offset from center
+        text (str): Text to be displayed
+        color (int): Color pair number
+        attribute: Text attribute for the text, e.g curses.A_UNDERLINE
         """
         x_pos, y_pos = self._calculate_pos(x_offset, y_offset, text)
         try:
@@ -84,7 +107,16 @@ class PrintText:
             ):
         """
         Displays text on the screen at a position relative to
-        the center of the screen. Does not clear before printing
+        the center of the screen.
+        Note: Does not clear the area before printing
+
+        Args:
+        x_offset (int): Horizontal offset from center
+        y_offset (int): Vertical offset from center
+        text (str): Text to be displayed
+        color (int): Color pair number
+        attribute: Text attribute for the text, e.g curses.A_UNDERLINE
+
         """
         x_pos, y_pos = self._calculate_pos(x_offset, y_offset, text)
         self.stdscr.addstr(
@@ -102,6 +134,13 @@ def speed_test(stdscr, timer):
     The timer starts to count down as soon as the user starts typing.
     The function will return the number och correct / incorrect characters
     after the loop.
+
+    Args:
+    stdscr (curses.window): The standard screen window used by curses for output.
+    timer (int): The time duration in seconds
+
+    Returns:
+    tuple: (int, int) The correct/incorrect characters entered by the user.
     """
     # Clear the screen and show the cursor
     stdscr.clear()
@@ -248,8 +287,16 @@ def speed_test(stdscr, timer):
 
 def calculate_wpm(num_correct, num_incorrect, timer):
     """
-    Here the WPM (Words Per Minute) is calculated.
-    The function will return both the Gross and Net WPM values.
+    Calculates the typing speed in WPM (Words Per Minute)
+
+
+    Args:
+    num_correct (int): The number of correctly typed characters
+    num_incorrect (int): The number of incorrectly typed characters
+    timer (int): The time duration in seconds
+
+    Returns:
+    tuple: (float, float) The Gross WPM and Net WPM
     """
     all_chars = num_correct + num_incorrect
     gross_wpm = (all_chars / 5) / (timer / 60)
@@ -263,7 +310,15 @@ def calculate_wpm(num_correct, num_incorrect, timer):
 
 def calculate_accuracy(num_correct, num_incorrect):
     """
-    Here we calculate the accuracy of the users input.
+    Calculates the typing accuracy based on the number of correct
+    and incorrect characters entered by the user.
+
+    Args:
+    num_correct (int): The number of correctly typed characters
+    num_incorrect (int): The number of incorrectly typed characters
+
+    Returns:
+    float: The typing accuracy as a percentage
     """
     all_chars = num_correct + num_incorrect
     # Prevent division by zero
@@ -276,7 +331,14 @@ def calculate_accuracy(num_correct, num_incorrect):
 
 def show_results(stdscr, scr, gross_wpm, net_wpm, accuracy):
     """
-    Presents the results to the user
+    Presents the results to the user on the screen.
+
+    Args:
+    stdscr (curses.window): The standard screen window used by curses for output.
+    scr (PrintText): An instance of the PrintText class for handling text printing.
+    gross_wpm (float): The Gross WPM calculated from calculate_wpm.
+    net_wpm (float): The net WPM calculated from calculate_wpm.
+    accuracy (float): The typing accuracy calculated from calculate_accuracy.
     """
     # Clear the screen
     stdscr.clear()
@@ -321,6 +383,9 @@ def main(stdscr):
     """
     Main menu, here the user gets the option to
     set the timer duration, start the game or exit.
+
+    Args:
+    stdscr (curses.window): The standard screen window used by curses for output.
     """
     # Initialize curses
     scr = PrintText(stdscr)
