@@ -271,12 +271,11 @@ def calculate_accuracy(num_correct, num_incorrect):
     return accuracy
 
 
-def show_results(stdscr, gross_wpm, net_wpm, accuracy, timer):
+def show_results(stdscr, scr, gross_wpm, net_wpm, accuracy):
     """
     Presents the results to the user
     """
     # Clear the screen
-    scr = PrintText(stdscr)
     stdscr.clear()
     while True:
         # Show the logo
@@ -409,7 +408,7 @@ def main(stdscr):
                         )
                 accuracy = calculate_accuracy(num_correct, num_incorrect)
                 # Display the results
-                show_results(stdscr, gross_wpm, net_wpm, accuracy, timer)
+                show_results(stdscr, scr, gross_wpm, net_wpm, accuracy)
             # Switch trough the timer options
             elif current_option == 1:
                 timer_index = (timer_index + 1) % len(timer_options)
