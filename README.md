@@ -1,6 +1,6 @@
 # SPEEDTYPE
 ![SPEEDTYPE DEMO](readme_images/speedtype_demo.gif)\
-[SPEEDTYPE](https://wpm-test-cf8ee303cbf2.herokuapp.com/) is a terminal based typing test where you can practice and improve your typing speed. 
+[SPEEDTYPE](https://wpm-test-cf8ee303cbf2.herokuapp.com/) is a terminal-based typing test where you can practice and improve your typing speed. 
 # Contents
 - [**SPEEDTYPE**](#SPEEDTYPE)
 - [User Stories](#user-stories)
@@ -45,16 +45,16 @@ Here the user has three options to select between
 3. Exit
 ### Typing test
 ![Typing test](readme_images/speedtype_scrot2.webp)
-Here the user is presented with rows of random words, the goal is to type as many as possible until the timer runs out. Letters are color coded depending on if the user types the corret character or not. New rows are presented as the user completes a row.
+Here, the user is presented with rows of random words. The goal is to type as many as possible until the timer runs out. Letters are color-coded depending on whether the user types the correct character or not. New rows are presented as the user completes a row.
 ### Results
 ![Results](readme_images/speedtype_scrot3.webp)
-When the timer runs out the results are shown, and the user has the options to return to the main menu.\ For more details about WPM and accuracy, see the [Caculations](#calculations) section.
+When the timer runs out, the results are shown, and the user has the option to return to the main menu. For more details about WPM and accuracy, see the [Calculations](#calculations) section.
 ## Development
 ### Project Inception and Flowchart
 ![Flowchart](readme_images/flowchart.png)\
-The project started by creating a flowchart to outline and visualise the basic mechanics. After that a fairly long period of trial and error, I especially struggled with matching the rows of words and user input lists along with the cursor position. 
+The project started by creating a flowchart to outline and visualize the basic mechanics. After that a fairly long period of trial and error, I especially struggled with matching the rows of words and user input lists with the cursor position. 
 ### Look and feel
-One goal for the project was to have a modern and minimalistic aesthetic. To achieve that I decided to use the Curses library which offers the flexibility to position text utilizing the whole screen. Curses also offers the ability to color text with decorations such as underlines.
+One goal for the project was to have a modern and minimalistic aesthetic. To achieve that, I decided to use the curses library, which offers the flexibility to position text and utilize the whole screen. Curses also offers the ability to color text with decorations such as underlines.
 ### Calculations
 The speed of typing is commonly measured in Words Per Minute (WPM).\
 WPM is calculated using the following formula:
@@ -133,7 +133,7 @@ test/test_run.py ..                                                             
 
 ## Bugs
 <details><summary>BUG: Rows are not separated by whitespace</summary>
-The last word of one row and the first word of the next row is not separated by whitespace, making it easy to misspell. This was fixed by adding a whitespace in the end of the `get_random_string` function
+The last word of one row and the first word of the next row are not separated by whitespace, making it easy to misspell. This was fixed by adding a whitespace at the end of the `get_random_string` function
 
 ```python
 return " ".join(random.choice(words) for _ in range(length))
@@ -175,7 +175,7 @@ to:
 
 </details>
 <details><summary>BUG: Shows incorrect coloring and text when the rows are shifted.</summary>
-This was corrected by clearing the screen and before moving the rows
+This was corrected by clearing the screen before moving the rows
 
 ```python        # Shift rows up and load a new row
         if len(user_input[1]) == len(rows[1]):
@@ -185,8 +185,8 @@ This was corrected by clearing the screen and before moving the rows
 
 </details>
 <details><summary>BUG: User can backspace into empty row</summary>
-This happen if the user backspaces into the top row while that row is still empty.
-To correct this I added an extra condition to the backspace key.
+This happens if the user backspaces into the top row while that row is still empty.
+To correct this, I added an extra condition to the backspace key.
 From:
 
 ```python
@@ -203,7 +203,7 @@ elif pos > 0 and rows[pos - 1]:
 
 </details>
 <details><summary>BUG: Old text stays on screen when it should have been removed</summary>
-This could be resolved by using `stdscr.refresh()`, however this resulted in the cursor and text blinking in a high frequency. I opted to instead clear the rows of text and the timer before printing it out again.
+This could be resolved by using `stdscr.refresh()`, but this resulted in the cursor and text blinking at a high frequency. I opted to instead clear the rows of text and the timer before printing it out again.
 
 From:
 ```python
@@ -242,8 +242,8 @@ stdscr.addstr(y_position - 5,  max_x // 2 - 30, str(f"{remaining_time}s"), curse
 
 </details>
 <details><summary>BUG: ZeroDivisionError in calculate_accuracy function</summary>
-This occured when no characters are typed in and the calculate_accuracy function tries to divide by zero.
-To prevent this I added this check before the division:
+This occurred when no characters were typed in and the calculate_accuracy function tried to divide by zero.
+To prevent this, I added this check before the division:
 
 ```python
 if all_chars == 0:
@@ -253,7 +253,7 @@ if all_chars == 0:
 </details>
 <details><summary>BUG: curses.error: curs_set() returned ERR when deployed on Heroku</summary>
 
-This bug occured when the project was deployed on Heroku. According to this [Bug Report](https://github.com/isontheline/pro.webssh.net/issues/709) there's a problem with certain terminal settings and hiding the cursor. Since it doesn't seem like I can change the terminal settings in Heroku I did a workaround to hide the cursor behind the highlighted option in main menu.
+This bug occurred when the project was deployed on Heroku. According to this [Bug Report](https://github.com/isontheline/pro.webssh.net/issues/709) there's a problem with certain terminal settings and hiding the cursor. Since it doesn't seem like I can change the terminal settings in Heroku, I did a workaround to hide the cursor behind the highlighted option in the main menu.
 
 ```python
 # Hide the cursor behind the highlighted menu option
@@ -264,10 +264,10 @@ stdscr.move(cursor_y, cursor_x)
 
 </details>
 <details><summary>BUG: Cursor is sometimes on the wrong position on a new row</summary>
-This bug occured because how the position of the rows of text and the position of the cursor where
-calculated seperatly and it was not certain that the to calculations came up with the same result.
+This bug occurred because the way the position of the rows of text and the position of the cursor were
+calculated separately, and it was not certain that the calculations came up with the same result.
 
-To fix this I saved the row starting position in a list and use that as the cursors starting position.
+To fix this, I saved the row's starting position in a list and used that as the cursor's starting position.
 ```python
 # Keep track of the row starting positions
 start_pos = []
@@ -289,7 +289,7 @@ stdscr.move(cursor_y, cursor_x)
 
 </details>
 <details><summary>BUG: Cursor is on the wrong position when backspacing back to the top row</summary>
-This bug occured on how I implemented the row positioning and how the the python len() function works. Basicly it adds an extra whitespace at the end of the row, to fix this I simply remove that trailing whitespace.
+This bug occurred in how I implemented the row positioning and how the python len() function works. Basically, it adds an extra whitespace at the end of the row, to fix this, I simply remove that trailing whitespace.
 
 ```python
 # Move the cursor to the top row
