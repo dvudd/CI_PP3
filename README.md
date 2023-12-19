@@ -303,6 +303,18 @@ elif pos_y > 0 and entry[pos_y - 1]:
 ```
 
 </details>
+<details><summary>BUG: WPM is showing a negative number</summary>
+This occured when the user inputs very few character and also when most of them are incorrect. Typing negative words per minute is not logical. This was fixed by adding this to the calculate_wpm function:
+
+```python
+# Prevent a negative number
+if net_wpm < 0:
+    net_wpm = 0
+```
+
+I also updated the test_run.py to assert the new corrected value.
+
+</details>
 
 ### Known Bugs
 No known bugs remaining.

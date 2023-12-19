@@ -254,6 +254,9 @@ def calculate_wpm(num_correct, num_incorrect, timer):
     all_chars = num_correct + num_incorrect
     gross_wpm = (all_chars / 5) / (timer / 60)
     net_wpm = gross_wpm - (num_incorrect / (timer / 60))
+    # Prevent a negative number
+    if net_wpm < 0:
+        net_wpm = 0
 
     return gross_wpm, net_wpm
 
@@ -285,7 +288,7 @@ def show_results(stdscr, scr, gross_wpm, net_wpm, accuracy):
 
         # Print the net wpm result
         scr.word(0, 0, f"WPM: {net_wpm:.2f}")
-        scr.word(2, 0, f"{net_wpm:.2f}", 3)
+        scr.word(2, 0, f" {net_wpm:.2f}  ", 3)
         scr.word(0, 1, f"Accuracy: {accuracy:.0f}%")
         scr.word(5, 1, f"{accuracy:.0f}%", 3)
         scr.word(0, 3, f"Gross WPM: {gross_wpm:.2f}")

@@ -26,9 +26,10 @@ def test_calculate_wpm():
     assert net_wpm == 4
 
     # Test case with more incorrect characters than correct
+    # It should not return a negative value.
     gross_wpm, net_wpm = calculate_wpm(50, 100, 60)
     assert gross_wpm == 30
-    assert net_wpm == -70
+    assert net_wpm == 0
 
 def test_calculate_accuracy():
     # All correct characters
