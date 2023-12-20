@@ -388,12 +388,15 @@ $ pip install windows-curses
 ## Credits
 During development, I used a mix of YouTube tutorials and the official Python documentation to learn and troubleshoot the code.
 ### Documentation and Tutorials
-- [Python Documentation](https://docs.python.org/3/library/curses.html)
-    - [isprintable](https://docs.python.org/3/library/stdtypes.html?highlight=isprintable#str.isprintable)
-    - [getmaxyx](https://docs.python.org/3/library/curses.html?highlight=getmaxyx#curses.window.getmaxyx)
-    - [nodelay](https://docs.python.org/3/library/curses.html#curses.window.nodelay)
-    - [refresh](https://docs.python.org/3/library/curses.html#curses.window.refresh)
-    - [endwin](https://docs.python.org/3/library/curses.html#curses.endwin)
+- [Python Documentation](https://docs.python.org/3/)
+    - [Random](https://docs.python.org/3/library/random.html)
+    - [Time](https://docs.python.org/3/library/time.html)
+    - [Curses](https://docs.python.org/3/library/curses.html)
+        - [isprintable](https://docs.python.org/3/library/stdtypes.html?highlight=isprintable#str.isprintable)
+        - [getmaxyx](https://docs.python.org/3/library/curses.html?highlight=getmaxyx#curses.window.getmaxyx)
+        - [nodelay](https://docs.python.org/3/library/curses.html#curses.window.nodelay)
+        - [refresh](https://docs.python.org/3/library/curses.html#curses.window.refresh)
+        - [endwin](https://docs.python.org/3/library/curses.html#curses.endwin)
 - [Python HowTo](https://docs.python.org/3/howto/curses.html)
     - [Attributes and Color](https://docs.python.org/3/howto/curses.html#attributes-and-color)
 - Python Curses Tutorial: [Tech With Tim](https://www.youtube.com/watch?v=Db4oc8qc9RU&list=PLzMcBGfZo4-n2TONAOImWL4sgZsmyMBc8)
