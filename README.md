@@ -117,23 +117,26 @@ The code is validated using [CI Python Linter](https://pep8ci.herokuapp.com/#) w
 | Error handling | The program exits if the words.txt is not found | Confirmed |
 
 ### Automated Testing
-To verify that the calculations are correct I set up automated tests using [pytest](https://docs.pytest.org/en/7.4.x/). These tests are in `test_run.py` under the `test` folder.
+To verify that the calculations used are correct, I set up automated tests using [pytest](https://docs.pytest.org/en/7.4.x/). These tests are found in `test_run.py` within the `test` folder and cover the following functions:
+- `calculacte_wpm`: Verifies the Word Per Minute calculation logic
+- `calculate_accuracy`: Verifies that the accuracy percentage is correct
+- `get_random_string`: Verifies the functionality for generating a random string of words.
 
 To install `pytest`, issue the command `pip3 install pytest`. Once the installation is complete run the command: 
 ```sh
 pytest test
-``````
+```
 
 Results:
 ```sh
-======================================= test session starts ========================================
+============================= test session starts ==============================
 platform darwin -- Python 3.11.6, pytest-7.4.3, pluggy-1.3.0
 rootdir: .../CodeInstitute/CI_PP3
-collected 2 items                                                                                  
+collected 3 items                                                              
 
-test/test_run.py ..                                                                          [100%]
+test/test_run.py ...                                                     [100%]
 
-======================================== 2 passed in 0.01s =========================================
+============================== 3 passed in 0.01s ===============================
 ```
 
 ## Bugs

@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from run import calculate_wpm, calculate_accuracy
+from run import calculate_wpm, calculate_accuracy, get_random_string
 
 def test_calculate_wpm():
     # Test case all correct characters for 30 seconds
@@ -46,3 +46,16 @@ def test_calculate_accuracy():
 
     # Edge case: No characters typed
     assert calculate_accuracy(0, 0) == 0.0
+
+def test_get_random_string():
+    # With no argument, returned words should be 10
+    random_words = get_random_string()
+    assert len(random_words.split()) == 10
+
+    # With a argument of 100
+    random_words = get_random_string(100)
+    assert len(random_words.split()) == 100
+
+    # With a argument of 0
+    random_words = get_random_string(0)
+    assert len(random_words.split()) == 0
