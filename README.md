@@ -88,27 +88,27 @@ The code is validated using [CI Python Linter](https://pep8ci.herokuapp.com/#) w
 | Main Menu | Pressing ENTER on the timer options changes the timer | Confirmed |
 | Main Menu | Pressing ENTER on the Quit option exits the program | Confirmed |
 | Main Menu | Pressing ENTER on the Start Game option starts the game | Confirmed |
-| Game | Shows two rows of randomly selected words | Confirmed |
-| Game | The cursor is on the first letter of the first word | Confirmed |
-| Game | The timer is the one selected from the main menu | Confirmed |
-| Game | The timer does not count down and is dimmed | Confirmed |
-| Game | Shows the instructions at the bottom | Confirmed |
-| Game | The timer starts when first button is pressed | Confirmed |
-| Game | The timer is now not dimmed | Confirmed |
-| Game | The instructions disappear once the timer starts | Confirmed |
-| Game | The timer counts down regardless of user input | Confirmed |
-| Game | The cursor moves the the right when input is entered | Confirmed |
-| Game | The letter turns green if input is correct | Confirmed |
-| Game | The letter turns red if input is incorrect | Confirmed |
-| Game | The letter is highlighted with and underscore if input is incorrect | Confirmed |
-| Game | The cursor moves the the left when backspace is pressed | Confirmed |
-| Game | The letter turns white when backspacing | Confirmed |
-| Game | When the last letter of the row is entered, the row moves up one position | Confirmed |
-| Game | When row is complete the cursor moves back to the start | Confirmed |
-| Game | When row is complete a new row of words are printed below | Confirmed |
-| Game | When backspacing I can move back to the previous row | Confirmed |
-| Game | Non-printable characters (e.g. ESC) is not valid input | Confirmed |
-| Game | The game ends when the timer reaches 0 | Confirmed |
+| Game Loop | Shows two rows of randomly selected words | Confirmed |
+| Game Loop | The cursor is on the first letter of the first word | Confirmed |
+| Game Loop | The timer is the one selected from the main menu | Confirmed |
+| Game Loop | The timer does not count down and is dimmed | Confirmed |
+| Game Loop | Shows the instructions at the bottom | Confirmed |
+| Game Loop | The timer starts counting down when first button is pressed | Confirmed |
+| Game Loop | When the timer starts, it is no longer dimmed | Confirmed |
+| Game Loop | The instructions disappear once the timer starts | Confirmed |
+| Game Loop | The timer counts down regardless of user input | Confirmed |
+| Game Loop | The cursor moves the the right when input is entered | Confirmed |
+| Game Loop | The letter turns green if input is correct | Confirmed |
+| Game Loop | The letter turns red if input is incorrect | Confirmed |
+| Game Loop | The letter is highlighted with and underscore if input is incorrect | Confirmed |
+| Game Loop | The cursor moves the the left when backspace is pressed | Confirmed |
+| Game Loop | The letter turns white when backspacing | Confirmed |
+| Game Loop | When the last letter of the row is entered, the row moves up one position | Confirmed |
+| Game Loop | When row is complete the cursor moves back to the start | Confirmed |
+| Game Loop | When row is complete a new row of words are printed below | Confirmed |
+| Game Loop | When backspacing I can move back to the previous row | Confirmed |
+| Game Loop | Non-printable characters (e.g. ESC) is not valid input | Confirmed |
+| Game Loop | The game ends when the timer reaches 0 | Confirmed |
 | Results | Shows the RESULT logo | Confirmed |
 | Results | Shows the results in the middle | Confirmed |
 | Results | Shows the instructions at the bottom | Confirmed |
