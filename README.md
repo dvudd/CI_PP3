@@ -39,22 +39,23 @@
 ## Features
 ### Main Menu
 ![Main Menu](readme_images/speedtype_scrot1.webp)
-Here the user has three options to select between
-1. Start the game
-2. How long the test should last for
-3. Exit
+The main menu is where the user can set the length of the test and also either start the test or exit the program. Navigation is done with the arrow keys, and selection is done with the enter key.
 ### Typing test
 ![Typing test](readme_images/speedtype_scrot2.webp)
-Here, the user is presented with rows of random words. The goal is to type as many as possible until the timer runs out. Letters are color-coded depending on whether the user types the correct character or not. New rows are presented as the user completes a row.
+This is the typing test, the goal here is to type as many words as possible until the timer runs out. It has a number of features.
+- The test starts as soon as the user starts typing.
+- Letters are color-coded depending on whether the user types the correct character or not.
+- Once a row is completed, a new row is presented, allowing the user to progress.
+- The user can press backspace to correct any mistakes made, it is also possible to backtrack into the previous row.
 ### Results
 ![Results](readme_images/speedtype_scrot3.webp)
-When the timer runs out, the results are shown, and the user has the option to return to the main menu. For more details about WPM and accuracy, see the [Calculations](#calculations) section.
+Once the timer runs out, the results are shown, the two most important being WPM and accuracy. For more details, see the [Calculations](#calculations) section. 
 ## Development
 ### Project Inception and Flowchart
 ![Flowchart](readme_images/flowchart.png)\
-The project started by creating a flowchart to outline and visualize the basic mechanics. After that a fairly long period of trial and error, I especially struggled with matching the rows of words and user input lists with the cursor position. 
+The project started by creating a flowchart to visualize the basic mechanics of the test. After a long period of struggling with matching the rows of words and user input together with the cursor position, additional features were added, such as the timer and randomized word generation.
 ### Look and feel
-One goal for the project was to have a modern and minimalistic aesthetic. To achieve that, I decided to use the curses library, which offers the flexibility to position text and utilize the whole screen. Curses also offers the ability to color text with decorations such as underlines.
+One goal for the project was to create a modern and minimalistic aesthetic. To achieve that, I decided to use the curses library, which offers the flexibility to position text and utilize the whole screen. Curses also offers the ability to color text with decorations such as underlines.
 ### Calculations
 The speed of typing is commonly measured in Words Per Minute (WPM).\
 WPM is calculated using the following formula:
@@ -106,6 +107,7 @@ The code is validated using [CI Python Linter](https://pep8ci.herokuapp.com/#) w
 | Game | When row is complete the cursor moves back to the start | Confirmed |
 | Game | When row is complete a new row of words are printed below | Confirmed |
 | Game | When backspacing I can move back to the previous row | Confirmed |
+| Game | Non-printable characters (e.g. ESC) is not valid input | Confirmed |
 | Game | The game ends when the timer reaches 0 | Confirmed |
 | Results | Shows the RESULT logo | Confirmed |
 | Results | Shows the results in the middle | Confirmed |
@@ -329,7 +331,7 @@ No known bugs remaining.
 - Python
 ### Libraries
 - [Curses](https://docs.python.org/3/howto/curses.html)
-    - Curses is used to print everything to the screen, allowing positioning of the text and its color.
+    - Curses is used to print everything to the screen, allowing positioning and coloring of text
 - [Random](https://docs.python.org/3/library/random.html)
     - The random library is used to randomize the presented words from words.txt
 - [Time](https://docs.python.org/3/library/time.html)
