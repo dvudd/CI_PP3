@@ -17,7 +17,7 @@ def get_random_string(length=10):
     Returns:
     str: A string of randomly selected words. separated by space
     """
-    file = "words.txt"
+    file = "data/words.txt"
     try:
         with open(file, "r") as file:
             words = file.read().splitlines()
